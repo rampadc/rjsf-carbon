@@ -21,8 +21,6 @@ import {
 import { FormProps, IChangeEvent, ThemeProps } from '@rjsf/core';
 import {
   TextInput,
-  Select,
-  SelectItem,
   Checkbox,
   NumberInput,
   TextArea,
@@ -37,28 +35,14 @@ import {
   InlineNotification,
   Column,
   Grid,
+  MultiSelect,
+  Dropdown,
 } from '@carbon/react';
 import { Add } from '@carbon/icons-react';
 
 interface CarbonThemeContextType extends FormContextType {
   theme?: 'white' | 'g10' | 'g90' | 'g100';
 }
-
-interface EnumOption {
-  label: string;
-  value: string;
-}
-
-interface ComboBoxItem {
-  id: string;
-  text: string;
-}
-
-// Match Carbon's ComboBox onChange type signature
-type OnChangeData<T> = {
-  selectedItem?: T | null;
-  [key: string]: any;
-};
 
 function TextWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
@@ -83,64 +67,88 @@ function TextWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends 
 function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
 ): ReactElement {
-  const { id, required, label, value, onChange, options, disabled, readonly, schema, onBlur, onFocus } = props;
-  const { enumOptions, emptyValue } = options;
-  const displayLabel = label || schema.title || '';
+  const { id, schema, options, required, disabled, readonly, value, label, onChange, onBlur, onFocus, placeholder } =
+    props;
 
-  const handleChange = (nextValue: any) => onChange(nextValue === '' ? emptyValue : nextValue);
-  const handleBlur = () => onBlur && onBlur(id, value);
-  const handleFocus = () => onFocus && onFocus(id, value);
+  const { enumOptions = [], enumDisabled = [] } = options || {}; // Destructure with defaults
 
-  if ((enumOptions as EnumOption[]).length > 10) {
-    const items: ComboBoxItem[] = (enumOptions as EnumOption[]).map((option) => ({
-      id: option.value,
-      text: option.label,
-    }));
+  const multiple = schema.type === 'array';
 
-    const selectedItem =
-      items.find((item) => item.id === value) || (value ? { id: value.toString(), text: value.toString() } : null);
+  // Add type safety for enumOptions
+  const items = (enumOptions as Array<{ label: string; value: any }>).map((option) => ({
+    id: option.value,
+    text: option.label,
+    disabled: enumDisabled.includes(option.value),
+  }));
+
+  const commonProps = {
+    id,
+    titleText: label || schema.title,
+    helperText: schema.description,
+    disabled: disabled || readonly,
+    required,
+    invalid: false,
+    invalidText: '',
+    warn: false,
+    warnText: '',
+    'aria-describedby': ariaDescribedByIds<T>(id),
+    itemToString: (item: { id: any; text: string } | null) => item?.text ?? '',
+  };
+
+  // For arrays (multiple select)
+  if (multiple) {
+    const selectedItems = Array.isArray(value) ? items.filter((item) => value.includes(item.id)) : [];
 
     return (
-      <ComboBox
-        id={id}
-        titleText={displayLabel}
-        placeholder={schema?.default?.toString() || 'Select or enter value'}
+      <MultiSelect
+        {...commonProps}
         items={items}
-        selectedItem={selectedItem}
-        itemToString={(item: ComboBoxItem | null) => (item ? item.text : '')}
-        onChange={(data: OnChangeData<ComboBoxItem>) => {
-          if (data.selectedItem) {
-            handleChange(data.selectedItem.id);
-          }
+        initialSelectedItems={selectedItems}
+        onChange={(data: { selectedItems: Array<{ id: any; text: string }> | null }) => {
+          // Add null check for selectedItems
+          onChange(data.selectedItems?.map((item) => item.id) || []);
         }}
-        onBlur={handleBlur}
-        onFocus={handleFocus}
-        disabled={disabled || readonly}
-        helperText={schema?.description?.toString()}
-        aria-describedby={ariaDescribedByIds<T>(id)}
-        allowCustomValue
+        onBlur={() => onBlur?.(id, value)}
+        onFocus={() => onFocus?.(id, value)}
+        placeholder={placeholder || 'Select values'}
+        label={placeholder || 'Select values'}
       />
     );
   }
 
+  // For single select
+  const selectedItem = items.find((item) => item.id === value);
+
+  // Use ComboBox if there are many options
+  if (items.length > 10) {
+    return (
+      <ComboBox
+        {...commonProps}
+        items={items}
+        selectedItem={selectedItem}
+        onChange={(data) => {
+          onChange(data.selectedItem?.id || options.emptyValue);
+        }}
+        onBlur={onBlur && (() => onBlur(id, value))}
+        onFocus={onFocus && (() => onFocus(id, value))}
+        placeholder={placeholder || 'Select or enter value'}
+      />
+    );
+  }
+
+  // Use Dropdown for smaller lists
   return (
-    <Select
-      id={id}
-      labelText={displayLabel}
-      value={value || ''}
-      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChange(e.target.value)}
-      onBlur={handleBlur}
-      onFocus={handleFocus}
-      required={required}
-      disabled={disabled || readonly}
-      helperText={schema?.description?.toString()}
-      aria-describedby={ariaDescribedByIds<T>(id)}
-    >
-      <SelectItem value='' text='Choose an option' />
-      {(enumOptions as EnumOption[]).map((option) => (
-        <SelectItem key={option.value} value={option.value} text={option.label} />
-      ))}
-    </Select>
+    <Dropdown
+      {...commonProps}
+      items={items}
+      selectedItem={selectedItem}
+      onChange={(data) => {
+        onChange(data.selectedItem?.id || options.emptyValue);
+      }}
+      onBlur={onBlur && (() => onBlur(id, value))}
+      onFocus={onFocus && (() => onFocus(id, value))}
+      label={placeholder || 'Select a value'}
+    />
   );
 }
 
