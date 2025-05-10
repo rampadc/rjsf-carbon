@@ -40,10 +40,6 @@ import {
 } from '@carbon/react';
 import { Add } from '@carbon/icons-react';
 
-const COMMON_STYLES = {
-  width: '100%',
-};
-
 interface EnumOption {
   label: string;
   value: string;
@@ -117,7 +113,6 @@ function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
         onFocus={handleFocus}
         disabled={disabled || readonly}
         helperText={schema?.description?.toString()}
-        style={COMMON_STYLES}
         aria-describedby={ariaDescribedByIds<T>(id)}
         allowCustomValue
       />
@@ -135,7 +130,6 @@ function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
       required={required}
       disabled={disabled || readonly}
       helperText={schema?.description?.toString()}
-      style={COMMON_STYLES}
       aria-describedby={ariaDescribedByIds<T>(id)}
     >
       <SelectItem value='' text='Choose an option' />
@@ -219,7 +213,6 @@ function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
         min={schema.minimum as number}
         max={schema.maximum as number}
         hideSteppers={false}
-        style={COMMON_STYLES}
         aria-describedby={ariaDescribedByIds<T>(id)}
       />
     </div>
@@ -244,7 +237,6 @@ function TextareaWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F exte
       disabled={disabled || readonly}
       placeholder={placeholder || schema?.default?.toString() || 'Enter value'}
       helperText={schema?.description?.toString()}
-      style={COMMON_STYLES}
       aria-describedby={ariaDescribedByIds<T>(id)}
     />
   );
@@ -362,7 +354,7 @@ function FieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F exten
   const hasErrors = (rawErrors && rawErrors.length > 0) || (Array.isArray(errors) && errors.length > 0);
 
   return (
-    <div className={hasErrors ? 'cds--form-item--error' : ''}>
+    <div className={`${hasErrors ? 'cds--form-item--error' : ''}`} style={{ width: '100%' }}>
       {children}
       {hasErrors && <div className='cds--form-requirement'>{Array.isArray(errors) ? errors.join('. ') : errors}</div>}
     </div>
@@ -379,11 +371,9 @@ function ObjectFieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F
   const { description, title, properties } = props;
 
   return (
-    <div className='cds--form' style={formStyle}>
+    <div className='cds--form' style={{ ...formStyle, width: '100%' }}>
       {(title || description) && (
-        <div style={{ marginBottom: '2.5rem' }}>
-          {' '}
-          {/* spacing-08 (40px) */}
+        <div style={{ marginBottom: '2.5rem', width: '100%' }}>
           {title && <h3 className='cds--heading-03'>{title}</h3>}
           {description && (
             <p className='cds--body-compact-01' style={{ marginTop: '0.5rem' }}>
@@ -392,9 +382,9 @@ function ObjectFieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F
           )}
         </div>
       )}
-      <Stack gap={7}>
+      <Stack gap={7} style={{ width: '100%' }}>
         {properties.map((element) => (
-          <div key={element.name} className='cds--form-item'>
+          <div key={element.name} className='cds--form-item' style={{ width: '100%' }}>
             {element.content}
           </div>
         ))}
@@ -598,7 +588,6 @@ function BaseInputTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
         invalid={rawErrors.length > 0}
         invalidText={rawErrors.join('. ')}
         helperText={schema?.description?.toString()}
-        style={COMMON_STYLES}
       />
     </div>
   );
@@ -752,7 +741,7 @@ export function generateWidgets<
     TextWidget,
     SelectWidget,
     CheckboxWidget,
-    NumberWidget,
+    updown: NumberWidget,
     TextareaWidget,
     DateWidget,
     RadioWidget,
