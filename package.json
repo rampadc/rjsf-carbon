@@ -86,20 +86,13 @@
     "typescript": "^5.8.3"
   },
   "workspaces": [
-    "packages/antd",
-    "packages/chakra-ui",
     "packages/core",
-    "packages/daisyui",
     "packages/docs",
-    "packages/fluentui-rc",
-    "packages/mui",
     "packages/playground",
-    "packages/react-bootstrap",
-    "packages/semantic-ui",
     "packages/utils",
     "packages/validator-ajv8",
     "packages/snapshot-tests",
-    "packages/shadcn"
+    "packages/rjsf-carbon"
   ],
   "dependencies": {
     "@carbon/icons-react": "^11.60.0",

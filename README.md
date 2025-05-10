@@ -1,3 +1,21 @@
+# rjsf-carbon
+
+Carbon Design System theme, fields and widgets for react-jsonschema-form.
+
+```sh
+npm install
+cd packages/playground
+npm start
+```
+
+WIP:
+
+- [ ] Live validation with all fields
+- [ ] Date picker
+- [ ] Nested layered forms
+
+## rjsf readme
+
 [![Build Status][build-shield]][build-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Apache 2.0 License][license-shield]][license-url]

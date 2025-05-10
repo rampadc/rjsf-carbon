@@ -1,12 +1,5 @@
-import { useState, useRef, useCallback, cloneElement, ReactElement, ReactNode } from 'react';
-import { CssBaseline } from '@mui/material';
-import { CacheProvider } from '@emotion/react';
-import createCache, { EmotionCache } from '@emotion/cache';
+import { useRef, ReactElement, ReactNode } from 'react';
 import Frame, { FrameComponentProps, FrameContextConsumer } from 'react-frame-component';
-import { __createChakraFrameProvider } from '@rjsf/chakra-ui';
-import { StyleProvider as AntdStyleProvider } from '@ant-design/cssinjs';
-import { __createFluentUIRCFrameProvider } from '@rjsf/fluentui-rc';
-import { __createDaisyUIFrameProvider } from '@rjsf/daisyui';
 import { __createCarbonFrameProvider } from 'rjsf-carbon';
 /*
 Adapted from https://github.com/mui-org/material-ui/blob/master/docs/src/modules/components/DemoSandboxed.js
@@ -46,60 +39,25 @@ interface DemoFrameProps extends FrameComponentProps {
 export default function DemoFrame(props: DemoFrameProps) {
   const { children, head, theme, subtheme, ...frameProps } = props;
 
-  const [ready, setReady] = useState(false);
-  const [emotionCache, setEmotionCache] = useState<EmotionCache>(createCache({ key: 'css' }));
-  const [container, setContainer] = useState();
-  const [window, setWindow] = useState();
+  // const [ready, setReady] = useState(false);
+  // const [container, setContainer] = useState();
+  // const [window, setWindow] = useState();
 
   const instanceRef = useRef<any>();
 
-  const onContentDidMount = useCallback(() => {
-    setReady(true);
-    setEmotionCache(
-      createCache({
-        key: 'css',
-        prepend: true,
-        container: instanceRef.current.contentWindow['demo-frame-jss'],
-      }),
-    );
-    setContainer(instanceRef.current.contentDocument.body);
-    setWindow(() => instanceRef.current.contentWindow);
-  }, [instanceRef]);
+  // const onContentDidMount = useCallback(() => {
+  //   setReady(true);
+  //   setContainer(instanceRef.current.contentDocument.body);
+  //   setWindow(() => instanceRef.current.contentWindow);
+  // }, [instanceRef]);
 
   let body: ReactNode = children;
-  if (theme === 'mui') {
-    body = ready ? (
-      <CacheProvider value={emotionCache}>
-        <CssBaseline />
-        {cloneElement(children, {
-          container: container,
-          window: window,
-        })}
-      </CacheProvider>
-    ) : null;
-  } else if (theme === 'fluentui-rc') {
-    body = <FrameContextConsumer>{__createFluentUIRCFrameProvider(props)}</FrameContextConsumer>;
-  } else if (theme === 'chakra-ui') {
-    body = <FrameContextConsumer>{__createChakraFrameProvider(props)}</FrameContextConsumer>;
-  } else if (theme === 'antd') {
-    body = ready ? (
-      <AntdStyleProvider container={instanceRef.current.contentWindow['demo-frame-jss']}>{children}</AntdStyleProvider>
-    ) : null;
-  } else if (theme === 'daisy-ui') {
-    body = ready ? (
-      <FrameContextConsumer>
-        {__createDaisyUIFrameProvider({
-          ...props,
-          subtheme: { dataTheme: subtheme },
-        })}
-      </FrameContextConsumer>
-    ) : null;
-  } else if (theme === 'carbon') {
+  if (theme === 'carbon') {
     body = <FrameContextConsumer>{__createCarbonFrameProvider(props)}</FrameContextConsumer>;
   }
 
   return (
-    <Frame ref={instanceRef} contentDidMount={onContentDidMount} head={head} {...frameProps}>
+    <Frame ref={instanceRef} head={head} {...frameProps}>
       <div id='demo-frame-jss' />
       {body}
     </Frame>
