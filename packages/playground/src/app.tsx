@@ -157,8 +157,14 @@ const themes: PlaygroundProps['themes'] = {
     theme: SuiTheme,
   },
   carbon: {
-    stylesheet: '//unpkg.com/@carbon/styles/css/styles.min.css',
+    stylesheet: '//unpkg.com/@carbon/styles@1.81.0/css/styles.min.css',
     theme: CarbonTheme,
+    subthemes: {
+      white: 'white',
+      g10: 'g10',
+      g90: 'g90',
+      g100: 'g100',
+    },
   },
   shadcn: {
     stylesheet: 'https://cdn.jsdelivr.net/gh/tuanphung2308/rjsf-shadcn-css@main/public/default.css',

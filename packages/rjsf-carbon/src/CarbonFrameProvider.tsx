@@ -1,30 +1,92 @@
 /** @jsxImportSource react */
 import { ReactNode } from 'react';
 
-const CarbonWrapper = (props: { children: ReactNode; targetDocument?: HTMLDocument }) => {
-  const { children } = props;
+interface CarbonWrapperProps {
+  children: ReactNode;
+  targetDocument?: HTMLDocument;
+  dataTheme?: string;
+}
+
+const CarbonWrapper = (props: CarbonWrapperProps) => {
+  const { children, dataTheme = 'white' } = props;
 
   return (
-    // Make sure styles are loaded in the iframe
-    <div className='cds--white'>{children}</div>
+    <div id='carbon-wrapper' className={`cds--theme-zone cds--${dataTheme}`} data-carbon-theme={dataTheme}>
+      {children}
+    </div>
   );
 };
 
-/**
- * __createCarbonFrameProvider is used to ensure Carbon components
- * can be rendered within an iframe.
- * Required for using Carbon components in the playground.
- *
- * NOTE: This is an internal component only used by @rjsf/playground
- */
 export const __createCarbonFrameProvider =
   (props: any) =>
   ({ document }: any) => {
-    // Add Carbon's styles to the iframe's head
-    const styleLink = document.createElement('link');
-    styleLink.rel = 'stylesheet';
-    styleLink.href = '/carbon.css'; // This needs to be available in the playground
-    document.head.appendChild(styleLink);
+    // Handle both string and object subtheme formats
+    const getTheme = (subtheme: any): string => {
+      if (typeof subtheme === 'string') {
+        // If it's a string, look up the corresponding dataTheme
+        const themeMap = {
+          white: 'white',
+          g10: 'g10',
+          g90: 'g90',
+          g100: 'g100',
+        };
+        return themeMap[subtheme as keyof typeof themeMap] || 'white';
+      }
+      // If it's an object with dataTheme property
+      return subtheme?.dataTheme || 'white';
+    };
 
-    return <CarbonWrapper targetDocument={document}>{props.children}</CarbonWrapper>;
+    const dataTheme = getTheme(props.subtheme);
+    console.log('Resolved theme:', dataTheme);
+
+    // Add Carbon's core styles
+    const coreStyleLink = document.createElement('link');
+    coreStyleLink.rel = 'stylesheet';
+    coreStyleLink.href = '//unpkg.com/@carbon/styles@1.81.0/css/styles.min.css';
+    document.head.appendChild(coreStyleLink);
+
+    // Add theme CSS
+    const themeStyles = document.createElement('style');
+    themeStyles.textContent = `
+      /* Base theme zone styles */
+      .cds--theme-zone {
+        min-height: 100vh;
+      }
+
+      /* Theme-specific styles */
+      .cds--white {
+        --cds-background: #ffffff;
+        --cds-text-primary: #161616;
+        background-color: var(--cds-background);
+        color: var(--cds-text-primary);
+      }
+
+      .cds--g10 {
+        --cds-background: #f4f4f4;
+        --cds-text-primary: #161616;
+        background-color: var(--cds-background);
+        color: var(--cds-text-primary);
+      }
+
+      .cds--g90 {
+        --cds-background: #262626;
+        --cds-text-primary: #ffffff;
+        background-color: var(--cds-background);
+        color: var(--cds-text-primary);
+      }
+
+      .cds--g100 {
+        --cds-background: #161616;
+        --cds-text-primary: #ffffff;
+        background-color: var(--cds-background);
+        color: var(--cds-text-primary);
+      }
+    `;
+    document.head.appendChild(themeStyles);
+
+    return (
+      <CarbonWrapper targetDocument={document} dataTheme={dataTheme}>
+        {props.children}
+      </CarbonWrapper>
+    );
   };

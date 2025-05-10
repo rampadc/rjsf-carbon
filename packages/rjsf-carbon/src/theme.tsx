@@ -40,6 +40,10 @@ import {
 } from '@carbon/react';
 import { Add } from '@carbon/icons-react';
 
+interface CarbonThemeContextType extends FormContextType {
+  theme?: 'white' | 'g10' | 'g90' | 'g100';
+}
+
 interface EnumOption {
   label: string;
   value: string;
@@ -735,7 +739,7 @@ function GridTemplate(props: GridTemplateProps) {
 export function generateWidgets<
   T = any,
   S extends StrictRJSFSchema = RJSFSchema,
-  F extends FormContextType = any,
+  F extends CarbonThemeContextType = CarbonThemeContextType,
 >(): RegistryWidgetsType<T, S, F> {
   return {
     TextWidget,
@@ -753,7 +757,7 @@ export function generateWidgets<
 export function generateTemplates<
   T = any,
   S extends StrictRJSFSchema = RJSFSchema,
-  F extends FormContextType = any,
+  F extends CarbonThemeContextType = CarbonThemeContextType,
 >(): Partial<TemplatesType<T, S, F>> {
   return {
     FieldTemplate,
@@ -779,7 +783,7 @@ export function generateTemplates<
 export function generateTheme<
   T = any,
   S extends StrictRJSFSchema = RJSFSchema,
-  F extends FormContextType = any,
+  F extends CarbonThemeContextType = CarbonThemeContextType,
 >(): ThemeProps<T, S, F> {
   return {
     widgets: generateWidgets<T, S, F>(),

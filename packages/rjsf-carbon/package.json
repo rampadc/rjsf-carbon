@@ -47,8 +47,8 @@
     "build:cjs": "esbuild ./src/index.ts --bundle --outfile=dist/index.js --sourcemap --packages=external --format=cjs",
     "build:esm": "esbuild ./src/index.ts --bundle --outfile=dist/rjsf-carbon.esm.js --sourcemap --packages=external --format=esm",
     "build:umd": "rollup dist/rjsf-carbon.esm.js --format=umd --file=dist/rjsf-carbon.umd.js --name=@rjsf/carbon --globals react:React,@carbon/react:CarbonReact",
-    "build:scss": "sass src/style.scss:dist/style.css --style=compressed --load-path=node_modules --quiet",
-    "postbuild:scss": "cp dist/style.css lib/style.css",
+    "build:scss": "sass src/style.scss:dist/style.css src/theme.scss:dist/theme.css --style=compressed --load-path=node_modules --quiet",
+    "postbuild:scss": "cp dist/style.css lib/style.css && cp dist/theme.css lib/theme.css",
     "build": "npm run build:ts && npm run build:cjs && npm run build:esm && npm run build:umd && npm run build:scss"
   },
   "lint-staged": {
@@ -88,6 +88,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@carbon/themes": "^11.52.0",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21"
   },
