@@ -1,6 +1,17 @@
-import React, { ReactElement } from 'react';
-import { WidgetProps, FieldTemplateProps, ObjectFieldTemplateProps, FormContextType } from '@rjsf/utils';
-import { ThemeProps } from '@rjsf/core';
+import React, { FormEvent, ReactElement } from 'react';
+import {
+  WidgetProps,
+  FieldTemplateProps,
+  ObjectFieldTemplateProps,
+  FormContextType,
+  RJSFSchema,
+  StrictRJSFSchema,
+  RegistryWidgetsType,
+  TemplatesType,
+  IconButtonProps,
+  SubmitButtonProps,
+} from '@rjsf/utils';
+import { FormProps, IChangeEvent, ThemeProps } from '@rjsf/core';
 import {
   TextInput,
   Select,
@@ -14,7 +25,6 @@ import {
   ComboBox,
   Button,
 } from '@carbon/react';
-import { RJSFSchema } from '@rjsf/utils';
 
 interface EnumOption {
   label: string;
@@ -32,13 +42,10 @@ type OnChangeData<T> = {
   [key: string]: any;
 };
 
-type FormProps = Record<string, unknown>;
-type UiSchema = Record<string, unknown>;
-
-const TextWidget = (props: WidgetProps): ReactElement => {
+function TextWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: WidgetProps<T, S, F>,
+): ReactElement {
   const { id, required, label, value, onChange, disabled, readonly, placeholder, schema } = props;
-
-  // Use schema title as label if present
   const displayLabel = label || schema.title || '';
 
   return (
@@ -53,9 +60,11 @@ const TextWidget = (props: WidgetProps): ReactElement => {
       helperText={schema?.description?.toString()}
     />
   );
-};
+}
 
-const SelectWidget = (props: WidgetProps): ReactElement => {
+function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: WidgetProps<T, S, F>,
+): ReactElement {
   const { id, required, label, value, onChange, options, disabled, readonly, schema } = props;
   const enumOptions = (options.enumOptions as EnumOption[]) || [];
   const displayLabel = label || schema.title || '';
@@ -106,9 +115,11 @@ const SelectWidget = (props: WidgetProps): ReactElement => {
       ))}
     </Select>
   );
-};
+}
 
-const CheckboxWidget = (props: WidgetProps): ReactElement => {
+function CheckboxWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: WidgetProps<T, S, F>,
+): ReactElement {
   const { id, label, value, onChange, disabled, readonly, schema } = props;
   const displayLabel = label || schema.title || '';
 
@@ -126,9 +137,11 @@ const CheckboxWidget = (props: WidgetProps): ReactElement => {
       {schema?.description && <div className='cds--form__helper-text'>{schema.description.toString()}</div>}
     </div>
   );
-};
+}
 
-const NumberWidget = (props: WidgetProps): ReactElement => {
+function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: WidgetProps<T, S, F>,
+): ReactElement {
   const { id, required, label, value, onChange, disabled, readonly, schema, placeholder } = props;
   const displayLabel = label || schema.title || '';
 
@@ -150,9 +163,11 @@ const NumberWidget = (props: WidgetProps): ReactElement => {
       max={schema?.maximum as number}
     />
   );
-};
+}
 
-const TextareaWidget = (props: WidgetProps): ReactElement => {
+function TextareaWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: WidgetProps<T, S, F>,
+): ReactElement {
   const { id, required, label, value, onChange, disabled, readonly, schema, placeholder } = props;
   const displayLabel = label || schema.title || '';
 
@@ -168,9 +183,11 @@ const TextareaWidget = (props: WidgetProps): ReactElement => {
       helperText={schema?.description?.toString()}
     />
   );
-};
+}
 
-const DateWidget = (props: WidgetProps): ReactElement => {
+function DateWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: WidgetProps<T, S, F>,
+): ReactElement {
   const { id, label, onChange, disabled, readonly, schema } = props;
   // DatePickerInput doesn't accept a value prop, it uses defaultValue
   const defaultValue = props.value ? props.value.toString() : '';
@@ -191,21 +208,24 @@ const DateWidget = (props: WidgetProps): ReactElement => {
       />
     </DatePicker>
   );
-};
+}
 
 // Custom Button renderer for form submit buttons
-const SubmitButton = (props: any) => {
-  const { ...otherProps } = props;
+function SubmitButton<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: SubmitButtonProps<T, S, F>,
+): ReactElement {
+  const { uiSchema, ...otherProps } = props;
 
   return (
     <Button kind='primary' type='submit' {...otherProps}>
-      {props.children || 'Submit'}
+      Submit
     </Button>
   );
-};
+}
 
-// This is a simpler FieldTemplate that doesn't add additional fieldset/legend
-const FieldTemplate = (props: FieldTemplateProps): ReactElement => {
+function FieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: FieldTemplateProps<T, S, F>,
+): ReactElement {
   // Just return children for most fields - the widgets handle their own labels
   const { children, errors, rawErrors } = props;
 
@@ -218,13 +238,15 @@ const FieldTemplate = (props: FieldTemplateProps): ReactElement => {
       {hasErrors && <div className='cds--form-requirement'>{Array.isArray(errors) ? errors.join('. ') : errors}</div>}
     </div>
   );
-};
+}
 
 const formStyle = {
   padding: '1rem 1rem 2rem 1rem', // Top: 16px, Right: 16px, Bottom: 32px, Left: 16px
 };
 
-const ObjectFieldTemplate = (props: ObjectFieldTemplateProps<FormProps, RJSFSchema, FormContextType>): ReactElement => {
+function ObjectFieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: ObjectFieldTemplateProps<T, S, F>,
+): ReactElement {
   const { properties, title, description } = props;
 
   return (
@@ -251,46 +273,147 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps<FormProps, RJSFSche
       </Stack>
     </div>
   );
-};
+}
 
 // Custom form template to ensure buttons are properly placed inside the form
-const FormTemplate = (props: any) => {
+function FormTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: FormProps<T, S, F>,
+): ReactElement {
   const { children, onSubmit, schema } = props;
 
-  return (
-    <form className='cds--form' style={formStyle} onSubmit={onSubmit} noValidate={true}>
-      {children}
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (onSubmit) {
+      onSubmit(e as unknown as IChangeEvent<T, S, F>, e);
+    }
+  };
 
-      {/* Submit button with proper spacing */}
+  return (
+    <form className='cds--form' style={formStyle} onSubmit={handleSubmit} noValidate={true}>
+      {children}
       <div style={{ marginTop: '3rem', marginLeft: '1rem' }}>
-        {' '}
-        {/* spacing-09 (48px) */}
         <Button kind='primary' type='submit'>
-          {schema.submitButtonText || 'Submit'}
+          {(schema as any).submitButtonText || 'Submit'}
         </Button>
       </div>
     </form>
   );
-};
+}
 
-const CarbonTheme: ThemeProps<FormProps, RJSFSchema, UiSchema> = {
-  widgets: {
+function AddButton<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: IconButtonProps<T, S, F>,
+): ReactElement {
+  return (
+    <Button kind='ghost' {...props}>
+      Add
+    </Button>
+  );
+}
+
+function CopyButton<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: IconButtonProps<T, S, F>,
+): ReactElement {
+  return (
+    <Button kind='ghost' {...props}>
+      Copy
+    </Button>
+  );
+}
+
+function MoveDownButton<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: IconButtonProps<T, S, F>,
+): ReactElement {
+  return (
+    <Button kind='ghost' {...props}>
+      Move Down
+    </Button>
+  );
+}
+
+function MoveUpButton<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: IconButtonProps<T, S, F>,
+): ReactElement {
+  return (
+    <Button kind='ghost' {...props}>
+      Move Up
+    </Button>
+  );
+}
+
+function RemoveButton<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: IconButtonProps<T, S, F>,
+): ReactElement {
+  return (
+    <Button kind='ghost' {...props}>
+      Remove
+    </Button>
+  );
+}
+
+// const CarbonTheme: ThemeProps<FormProps, RJSFSchema, UiSchema> = {
+//   widgets: {
+//     TextWidget,
+//     SelectWidget,
+//     CheckboxWidget,
+//     NumberWidget,
+//     TextareaWidget,
+//     DateWidget,
+//   },
+
+//   templates: {
+//     FieldTemplate,
+//     ObjectFieldTemplate,
+//     ButtonTemplates: {
+//       SubmitButton,
+//     },
+//     FormTemplate, // Add the custom form template
+//   },
+// };
+
+export function generateWidgets<
+  T = any,
+  S extends StrictRJSFSchema = RJSFSchema,
+  F extends FormContextType = any,
+>(): RegistryWidgetsType<T, S, F> {
+  return {
     TextWidget,
     SelectWidget,
     CheckboxWidget,
     NumberWidget,
     TextareaWidget,
     DateWidget,
-  },
+  };
+}
 
-  templates: {
+export function generateTemplates<
+  T = any,
+  S extends StrictRJSFSchema = RJSFSchema,
+  F extends FormContextType = any,
+>(): Partial<TemplatesType<T, S, F>> {
+  return {
     FieldTemplate,
     ObjectFieldTemplate,
+    FormTemplate,
     ButtonTemplates: {
       SubmitButton,
+      AddButton,
+      CopyButton,
+      MoveDownButton,
+      MoveUpButton,
+      RemoveButton,
     },
-    FormTemplate, // Add the custom form template
-  },
-};
+  };
+}
 
-export default CarbonTheme;
+export function generateTheme<
+  T = any,
+  S extends StrictRJSFSchema = RJSFSchema,
+  F extends FormContextType = any,
+>(): ThemeProps<T, S, F> {
+  return {
+    widgets: generateWidgets<T, S, F>(),
+    templates: generateTemplates<T, S, F>(),
+  };
+}
+
+export default generateTheme();
