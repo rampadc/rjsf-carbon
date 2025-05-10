@@ -14,6 +14,8 @@ WIP:
 - [ ] Date picker
 - [ ] Nested layered forms
 
+This repository serves as a dev repo. When it's time to create a pull request, another repo will be created.
+
 ## rjsf readme
 
 [![Build Status][build-shield]][build-url]
