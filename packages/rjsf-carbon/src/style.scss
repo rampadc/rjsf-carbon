@@ -1,0 +1,65 @@
+@use "@carbon/react";
+
+.rjsf-carbon {
+  // Basic form layout
+  .cds--form {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  // Error styling
+  .cds--form-item--error {
+    .cds--form-requirement {
+      color: var(--cds-support-error);
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+    }
+  }
+
+  // Helper text styling
+  .cds--form__helper-text {
+    color: var(--cds-text-secondary);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  // Description text styling
+  .description {
+    @include carbon--type-style('helper-text-01');
+    margin-top: carbon--spacing(2);
+    color: var(--cds-text-secondary);
+  }
+
+  // Field layout
+  .field {
+    margin-bottom: carbon--spacing(5);
+  }
+
+  // Array field styling
+  .array-item {
+    margin-bottom: carbon--spacing(5);
+  }
+
+  // Object field styling
+  .object-property {
+    margin-bottom: carbon--spacing(5);
+  }
+
+  // Title and description spacing
+  .field-description {
+    margin-bottom: carbon--spacing(3);
+  }
+
+  // Button spacing
+  .button-group {
+    margin-top: carbon--spacing(5);
+  }
+
+  // Form actions
+  .form-actions {
+    margin-top: carbon--spacing(7);
+    display: flex;
+    justify-content: flex-start;
+    gap: carbon--spacing(3);
+  }
+}
