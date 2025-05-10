@@ -1,3 +1,9 @@
-@use '@carbon/react';
-@use '@carbon/react/scss/zone';
-@use './theme.scss';
+@use '@carbon/react/scss/config';
+@use '@carbon/react/scss/theme';
+@use '@carbon/react/scss/components/form';
+@use '@carbon/react/scss/components/button';
+@use '@carbon/react/scss/reset';
+
+.rjsf {
+  width: 100%;
+}
