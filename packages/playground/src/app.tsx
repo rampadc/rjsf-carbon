@@ -6,6 +6,7 @@ import { Theme as BootstrapTheme } from '@rjsf/react-bootstrap';
 import { Theme as ChakraUITheme } from '@rjsf/chakra-ui';
 import { Theme as shadcnTheme } from '@rjsf/shadcn';
 import { Theme as DaisyUITheme } from '@rjsf/daisyui';
+import { default as CarbonTheme, __createCarbonFrameProvider } from 'rjsf-carbon';
 import v8Validator, { customizeValidator } from '@rjsf/validator-ajv8';
 import Ajv2019 from 'ajv/dist/2019.js';
 import Ajv2020 from 'ajv/dist/2020.js';
@@ -154,6 +155,11 @@ const themes: PlaygroundProps['themes'] = {
   'semantic-ui': {
     stylesheet: '//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css',
     theme: SuiTheme,
+  },
+  carbon: {
+    stylesheet: '//unpkg.com/@carbon/styles/css/styles.min.css',
+    theme: CarbonTheme,
+    frameProvider: __createCarbonFrameProvider(),
   },
   shadcn: {
     stylesheet: 'https://cdn.jsdelivr.net/gh/tuanphung2308/rjsf-shadcn-css@main/public/default.css',
