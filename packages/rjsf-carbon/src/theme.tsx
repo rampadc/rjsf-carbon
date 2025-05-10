@@ -13,6 +13,10 @@ import {
   ArrayFieldTemplateProps,
   ErrorListProps,
   BaseInputTemplateProps,
+  ariaDescribedByIds,
+  TitleFieldProps,
+  DescriptionFieldProps,
+  GridTemplateProps,
 } from '@rjsf/utils';
 import { FormProps, IChangeEvent, ThemeProps } from '@rjsf/core';
 import {
@@ -31,8 +35,14 @@ import {
   Slider,
   RadioButton,
   InlineNotification,
+  Column,
+  Grid,
 } from '@carbon/react';
 import { Add } from '@carbon/icons-react';
+
+const COMMON_STYLES = {
+  width: '100%',
+};
 
 interface EnumOption {
   label: string;
@@ -73,13 +83,16 @@ function TextWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends 
 function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
 ): ReactElement {
-  const { id, required, label, value, onChange, options, disabled, readonly, schema } = props;
-  const enumOptions = (options.enumOptions as EnumOption[]) || [];
+  const { id, required, label, value, onChange, options, disabled, readonly, schema, onBlur, onFocus } = props;
+  const { enumOptions, emptyValue } = options;
   const displayLabel = label || schema.title || '';
 
-  // If there are many options, use ComboBox instead of Select for better UX
-  if (enumOptions.length > 10) {
-    const items: ComboBoxItem[] = enumOptions.map((option) => ({
+  const handleChange = (nextValue: any) => onChange(nextValue === '' ? emptyValue : nextValue);
+  const handleBlur = () => onBlur && onBlur(id, value);
+  const handleFocus = () => onFocus && onFocus(id, value);
+
+  if ((enumOptions as EnumOption[]).length > 10) {
+    const items: ComboBoxItem[] = (enumOptions as EnumOption[]).map((option) => ({
       id: option.value,
       text: option.label,
     }));
@@ -97,11 +110,15 @@ function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
         itemToString={(item: ComboBoxItem | null) => (item ? item.text : '')}
         onChange={(data: OnChangeData<ComboBoxItem>) => {
           if (data.selectedItem) {
-            onChange(data.selectedItem.id);
+            handleChange(data.selectedItem.id);
           }
         }}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
         disabled={disabled || readonly}
         helperText={schema?.description?.toString()}
+        style={COMMON_STYLES}
+        aria-describedby={ariaDescribedByIds<T>(id)}
         allowCustomValue
       />
     );
@@ -112,13 +129,17 @@ function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
       id={id}
       labelText={displayLabel}
       value={value || ''}
-      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(e.target.value)}
+      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChange(e.target.value)}
+      onBlur={handleBlur}
+      onFocus={handleFocus}
       required={required}
       disabled={disabled || readonly}
       helperText={schema?.description?.toString()}
+      style={COMMON_STYLES}
+      aria-describedby={ariaDescribedByIds<T>(id)}
     >
       <SelectItem value='' text='Choose an option' />
-      {enumOptions.map((option) => (
+      {(enumOptions as EnumOption[]).map((option) => (
         <SelectItem key={option.value} value={option.value} text={option.label} />
       ))}
     </Select>
@@ -128,7 +149,7 @@ function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
 function CheckboxWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
 ): ReactElement {
-  const { id, label, value, onChange, disabled, readonly, schema } = props;
+  const { id, label, value, onChange, disabled, readonly, schema, onBlur, onFocus } = props;
   const displayLabel = label || schema.title || '';
 
   return (
@@ -140,7 +161,10 @@ function CheckboxWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F exte
         onChange={(_: React.ChangeEvent<HTMLInputElement>, data: { checked: boolean; id: string }) => {
           onChange(data.checked);
         }}
+        onBlur={() => onBlur && onBlur(id, value)}
+        onFocus={() => onFocus && onFocus(id, value)}
         disabled={disabled || readonly}
+        aria-describedby={ariaDescribedByIds<T>(id)}
       />
       {schema?.description && <div className='cds--form__helper-text'>{schema.description.toString()}</div>}
     </div>
@@ -150,8 +174,31 @@ function CheckboxWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F exte
 function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
 ): ReactElement {
-  const { id, required, label, value, onChange, disabled, readonly, schema, placeholder, rawErrors = [] } = props;
+  const {
+    id,
+    required,
+    label,
+    value,
+    onChange,
+    disabled,
+    readonly,
+    schema,
+    placeholder,
+    rawErrors = [],
+    onBlur,
+    onFocus,
+    options,
+  } = props;
   const displayLabel = label || schema.title || '';
+
+  const handleChange = (_event: React.MouseEvent<HTMLButtonElement>, state: { value: string | number }) => {
+    if (state.value === '') {
+      onChange(options.emptyValue);
+      return;
+    }
+    const numericValue = typeof state.value === 'string' ? parseFloat(state.value) : state.value;
+    onChange(numericValue);
+  };
 
   return (
     <div className='cds--form-item'>
@@ -159,10 +206,9 @@ function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
         id={id}
         label={displayLabel}
         value={value}
-        onChange={(_event: React.MouseEvent<HTMLButtonElement>, state: { value: string | number }) => {
-          const numericValue = typeof state.value === 'string' ? parseFloat(state.value) : state.value;
-          onChange(numericValue);
-        }}
+        onChange={handleChange}
+        onBlur={() => onBlur && onBlur(id, value)}
+        onFocus={() => onFocus && onFocus(id, value)}
         required={required}
         disabled={disabled || readonly}
         invalid={rawErrors.length > 0}
@@ -173,6 +219,8 @@ function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
         min={schema.minimum as number}
         max={schema.maximum as number}
         hideSteppers={false}
+        style={COMMON_STYLES}
+        aria-describedby={ariaDescribedByIds<T>(id)}
       />
     </div>
   );
@@ -181,7 +229,7 @@ function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
 function TextareaWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
 ): ReactElement {
-  const { id, required, label, value, onChange, disabled, readonly, schema, placeholder } = props;
+  const { id, required, label, value, onChange, disabled, readonly, schema, placeholder, onBlur, onFocus } = props;
   const displayLabel = label || schema.title || '';
 
   return (
@@ -190,10 +238,14 @@ function TextareaWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F exte
       labelText={displayLabel}
       value={value || ''}
       onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => onChange(e.target.value)}
+      onBlur={() => onBlur && onBlur(id, value)}
+      onFocus={() => onFocus && onFocus(id, value)}
       required={required}
       disabled={disabled || readonly}
       placeholder={placeholder || schema?.default?.toString() || 'Enter value'}
       helperText={schema?.description?.toString()}
+      style={COMMON_STYLES}
+      aria-describedby={ariaDescribedByIds<T>(id)}
     />
   );
 }
@@ -201,7 +253,7 @@ function TextareaWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F exte
 function RangeWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
 ): ReactElement {
-  const { id, value, required, disabled, readonly, label, schema, onChange } = props;
+  const { id, value, required, disabled, readonly, label, schema, onChange, onBlur, onFocus } = props;
 
   const displayLabel = label || schema.title || '';
   const min = schema.minimum || 0;
@@ -217,11 +269,15 @@ function RangeWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
         max={max}
         step={step}
         value={value || min}
-        onChange={(data: { value: number; valueUpper: number | undefined }) => onChange(data.value)}
+        onChange={(data: { value: number }) => onChange(data.value)}
+        onBlur={() => onBlur && onBlur(id, value)}
+        onFocus={() => onFocus && onFocus(id, value)}
         required={required}
         disabled={disabled || readonly}
         hideTextInput={false}
+        aria-describedby={ariaDescribedByIds<T>(id)}
       />
+      {schema.description && <div className='cds--form__helper-text'>{schema.description}</div>}
     </div>
   );
 }
@@ -229,9 +285,7 @@ function RangeWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
 function DateWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
 ): ReactElement {
-  const { id, label, onChange, disabled, readonly, schema } = props;
-  // DatePickerInput doesn't accept a value prop, it uses defaultValue
-  const defaultValue = props.value ? props.value.toString() : '';
+  const { id, label, onChange, disabled, readonly, schema, onBlur, onFocus, value } = props;
   const displayLabel = label || schema.title || '';
 
   return (
@@ -239,15 +293,49 @@ function DateWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends 
       <DatePickerInput
         id={id}
         labelText={displayLabel}
-        defaultValue={defaultValue}
+        defaultValue={value ? value.toString() : ''}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+        onBlur={() => onBlur && onBlur(id, value)}
+        onFocus={() => onFocus && onFocus(id, value)}
         invalid={false}
         invalidText=''
         disabled={disabled || readonly}
         placeholder='yyyy-mm-dd'
         helperText={schema?.description?.toString()}
+        aria-describedby={ariaDescribedByIds<T>(id)}
       />
     </DatePicker>
+  );
+}
+
+function AltDateTimeWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: WidgetProps<T, S, F>,
+): ReactElement {
+  const { id, label, onChange, disabled, readonly, schema, value } = props;
+  const displayLabel = label || schema.title || '';
+
+  const handleDateChange = (dates: Date[]) => {
+    if (dates && dates[0]) {
+      const currentValue = value ? new Date(value) : new Date();
+      const selectedDate = dates[0];
+      currentValue.setFullYear(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+      onChange(currentValue.toISOString());
+    }
+  };
+
+  return (
+    <Stack gap={3}>
+      <DatePicker datePickerType='single' onChange={handleDateChange}>
+        <DatePickerInput
+          id={id}
+          labelText={displayLabel}
+          defaultValue={value ? new Date(value).toLocaleDateString() : ''}
+          disabled={disabled || readonly}
+          aria-describedby={ariaDescribedByIds<T>(id)}
+        />
+      </DatePicker>
+      {/* ... rest of the component */}
+    </Stack>
   );
 }
 
@@ -510,8 +598,148 @@ function BaseInputTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
         invalid={rawErrors.length > 0}
         invalidText={rawErrors.join('. ')}
         helperText={schema?.description?.toString()}
+        style={COMMON_STYLES}
       />
     </div>
+  );
+}
+
+function TitleFieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: TitleFieldProps<T, S, F>,
+): ReactElement {
+  const { id, required, title } = props;
+
+  if (!title) {
+    return <div />; // Return empty div instead of null
+  }
+
+  return (
+    <div className='cds--form-item'>
+      <label htmlFor={id} className='cds--label'>
+        {title}
+        {required && <span className='cds--label--required'>*</span>}
+      </label>
+    </div>
+  );
+}
+
+function DescriptionFieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: DescriptionFieldProps<T, S, F>,
+): ReactElement {
+  const { description, id } = props;
+
+  if (!description) {
+    return <div />; // Return empty div instead of null
+  }
+
+  return (
+    <div id={id} className='cds--form__helper-text'>
+      {description}
+    </div>
+  );
+}
+
+type ColumnSpanNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16;
+type ColumnSpanString = '25%' | '50%' | '75%' | '100%';
+type ColumnSpanSimple = ColumnSpanNumber | ColumnSpanString;
+
+interface ColumnSpanObject {
+  span?: ColumnSpanSimple;
+  offset?: number;
+}
+
+type ColumnSpan = ColumnSpanSimple | ColumnSpanObject;
+
+interface GridOptions {
+  columns?: number;
+  narrow?: boolean;
+  condensed?: boolean;
+  sm?: ColumnSpan;
+  md?: ColumnSpan;
+  lg?: ColumnSpan;
+  autoColumns?: boolean;
+  offset?: {
+    sm?: number;
+    md?: number;
+    lg?: number;
+  };
+}
+
+function GridTemplate(props: GridTemplateProps) {
+  const { children, uiSchema = {} } = props;
+
+  // Get grid options from uiSchema
+  const gridOptions: GridOptions = uiSchema?.['ui:options']?.grid || {};
+  const { columns = 1, narrow = false, condensed = false, sm, md, lg, autoColumns = false, offset } = gridOptions;
+
+  // Helper function to process column sizes
+  const processColumnSize = (size: ColumnSpan | undefined): ColumnSpan | undefined => {
+    if (!size) {
+      return undefined;
+    }
+
+    if (typeof size === 'object') {
+      return size;
+    }
+
+    return { span: size };
+  };
+
+  // If column prop is true, render as a Column
+  if (props.column) {
+    const columnProps = {
+      sm: processColumnSize(sm),
+      md: processColumnSize(md),
+      lg: processColumnSize(lg),
+    };
+
+    if (offset) {
+      return (
+        <Column
+          {...columnProps}
+          sm={{ ...(columnProps.sm as ColumnSpanObject), offset: offset.sm }}
+          md={{ ...(columnProps.md as ColumnSpanObject), offset: offset.md }}
+          lg={{ ...(columnProps.lg as ColumnSpanObject), offset: offset.lg }}
+        >
+          {children}
+        </Column>
+      );
+    }
+
+    return <Column {...columnProps}>{children}</Column>;
+  }
+
+  // For auto columns mode
+  if (autoColumns) {
+    return (
+      <Grid narrow={narrow} condensed={condensed}>
+        {React.Children.map(children, (child) => (
+          <Column>{child}</Column>
+        ))}
+      </Grid>
+    );
+  }
+
+  // For explicit column sizing
+  return (
+    <Grid narrow={narrow} condensed={condensed}>
+      {React.Children.map(children, (child) => {
+        // Default column spans
+        const defaultSm: ColumnSpan = Math.min(Math.floor(4 / columns), 4) as ColumnSpanNumber;
+        const defaultMd: ColumnSpan = Math.min(Math.floor(8 / columns), 8) as ColumnSpanNumber;
+        const defaultLg: ColumnSpan = Math.min(Math.floor(16 / columns), 16) as ColumnSpanNumber;
+
+        return (
+          <Column
+            sm={processColumnSize(sm) || defaultSm}
+            md={processColumnSize(md) || defaultMd}
+            lg={processColumnSize(lg) || defaultLg}
+          >
+            {child}
+          </Column>
+        );
+      })}
+    </Grid>
   );
 }
 
@@ -529,6 +757,7 @@ export function generateWidgets<
     DateWidget,
     RadioWidget,
     RangeWidget,
+    AltDateTimeWidget,
   };
 }
 
@@ -544,6 +773,9 @@ export function generateTemplates<
     ArrayFieldTemplate,
     ErrorListTemplate: ErrorList,
     BaseInputTemplate,
+    TitleFieldTemplate,
+    DescriptionFieldTemplate,
+    GridTemplate,
     ButtonTemplates: {
       SubmitButton,
       AddButton,
