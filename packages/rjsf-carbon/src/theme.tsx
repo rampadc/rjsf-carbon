@@ -153,25 +153,6 @@ function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
   const { id, required, label, value, onChange, disabled, readonly, schema, placeholder, rawErrors = [] } = props;
   const displayLabel = label || schema.title || '';
 
-  // Handle both number inputs and sliders
-  if (props.options.widget === 'range') {
-    return (
-      <div className='cds--form-item'>
-        <Slider
-          id={id}
-          labelText={displayLabel}
-          value={value || schema.minimum || 0}
-          min={schema.minimum as number}
-          max={schema.maximum as number}
-          step={schema.multipleOf || 1}
-          onChange={(data: { value: number }) => onChange(data.value)}
-          disabled={disabled || readonly}
-        />
-        <span className='cds--slider-value'>{value}</span>
-      </div>
-    );
-  }
-
   return (
     <div className='cds--form-item'>
       <NumberInput
@@ -214,6 +195,34 @@ function TextareaWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F exte
       placeholder={placeholder || schema?.default?.toString() || 'Enter value'}
       helperText={schema?.description?.toString()}
     />
+  );
+}
+
+function RangeWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: WidgetProps<T, S, F>,
+): ReactElement {
+  const { id, value, required, disabled, readonly, label, schema, onChange } = props;
+
+  const displayLabel = label || schema.title || '';
+  const min = schema.minimum || 0;
+  const max = schema.maximum || 100;
+  const step = schema.multipleOf || 1;
+
+  return (
+    <div className='cds--form-item'>
+      <Slider
+        id={id}
+        labelText={displayLabel}
+        min={min}
+        max={max}
+        step={step}
+        value={value || min}
+        onChange={(data: { value: number; valueUpper: number | undefined }) => onChange(data.value)}
+        required={required}
+        disabled={disabled || readonly}
+        hideTextInput={false}
+      />
+    </div>
   );
 }
 
@@ -519,6 +528,7 @@ export function generateWidgets<
     TextareaWidget,
     DateWidget,
     RadioWidget,
+    RangeWidget,
   };
 }
 
