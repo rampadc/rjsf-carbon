@@ -47,22 +47,8 @@ interface CarbonThemeContextType extends FormContextType {
 function TextWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
 ): ReactElement {
-  const { id, required, label, value, onChange, disabled, readonly, placeholder, schema } = props;
-  const displayLabel = `${label || schema.title || ''}${required ? ' (required)' : ''}`;
-
-  return (
-    <TextInput
-      id={id}
-      labelText={displayLabel}
-      value={value || ''}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
-      required={required}
-      aria-required={required}
-      disabled={disabled || readonly}
-      placeholder={placeholder || schema?.default?.toString() || 'Enter value'}
-      helperText={schema?.description?.toString()}
-    />
-  );
+  // TextWidget passes through to BaseInputTemplate
+  return <BaseInputTemplate<T, S, F> {...props} />;
 }
 
 function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
@@ -198,6 +184,7 @@ function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
     onFocus,
     options,
   } = props;
+
   const displayLabel = `${label || schema.title || ''}${required ? ' (required)' : ''}`;
 
   const handleChange = (_event: React.MouseEvent<HTMLButtonElement>, state: { value: string | number }) => {
@@ -211,25 +198,27 @@ function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
 
   return (
     <div className='cds--form-item'>
-      <NumberInput
-        id={id}
-        label={displayLabel}
-        value={value}
-        onChange={handleChange}
-        onBlur={() => onBlur && onBlur(id, value)}
-        onFocus={() => onFocus && onFocus(id, value)}
-        required={required}
-        disabled={disabled || readonly}
-        invalid={rawErrors.length > 0}
-        invalidText={rawErrors.join('. ')}
-        helperText={schema?.description?.toString()}
-        placeholder={placeholder || schema?.default?.toString()}
-        step={schema.multipleOf || 1}
-        min={schema.minimum as number}
-        max={schema.maximum as number}
-        hideSteppers={false}
-        aria-describedby={ariaDescribedByIds<T>(id)}
-      />
+      <div className='cds--form-item cds--number-wrapper' style={{ width: '100%' }}>
+        <NumberInput
+          id={id}
+          value={value}
+          onChange={handleChange}
+          onBlur={() => onBlur && onBlur(id, value)}
+          onFocus={() => onFocus && onFocus(id, value)}
+          label={displayLabel}
+          required={required}
+          disabled={disabled || readonly}
+          invalid={rawErrors.length > 0}
+          invalidText={rawErrors.join('. ')}
+          helperText={schema?.description?.toString()}
+          placeholder={placeholder || schema?.default?.toString()}
+          step={schema.multipleOf || 1}
+          min={schema.minimum as number}
+          max={schema.maximum as number}
+          hideSteppers={false}
+          size='md'
+        />
+      </div>
     </div>
   );
 }
@@ -587,29 +576,68 @@ function BaseInputTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
     schema,
     rawErrors = [],
     label,
-    hideLabel,
   } = props;
 
-  return (
-    <div className='cds--form-item'>
-      <TextInput
+  const displayLabel = `${label || schema.title || ''}${required ? ' (required)' : ''}`;
+
+  // Handle different input types
+  if (type === 'textarea') {
+    return (
+      <TextArea
         id={id}
-        type={type || 'text'}
-        required={required}
-        aria-required={required}
+        labelText={displayLabel}
+        value={value || ''}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => onChange(e.target.value)}
+        onBlur={(e: React.FocusEvent<HTMLTextAreaElement>) => onBlur && onBlur(id, e.target.value)}
+        onFocus={(e: React.FocusEvent<HTMLTextAreaElement>) => onFocus && onFocus(id, e.target.value)}
+        placeholder={placeholder || schema?.default?.toString()}
         disabled={disabled || readonly}
-        value={value || value === 0 ? value : ''}
+        required={required}
+        invalid={rawErrors.length > 0}
+        invalidText={rawErrors.join('. ')}
+        rows={4}
+      />
+    );
+  }
+
+  // For password fields with validation
+  if (type === 'password') {
+    return (
+      <TextInput
+        type='password'
+        id={id}
+        labelText={displayLabel}
+        value={value || ''}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
         onBlur={(e: React.FocusEvent<HTMLInputElement>) => onBlur && onBlur(id, e.target.value)}
         onFocus={(e: React.FocusEvent<HTMLInputElement>) => onFocus && onFocus(id, e.target.value)}
-        autoFocus={autofocus}
-        placeholder={placeholder || schema?.default?.toString()}
-        labelText={hideLabel ? undefined : label}
+        required={required}
+        disabled={disabled || readonly}
         invalid={rawErrors.length > 0}
         invalidText={rawErrors.join('. ')}
-        helperText={schema?.description?.toString()}
+        pattern={schema.pattern}
       />
-    </div>
+    );
+  }
+
+  // Default text input
+  return (
+    <TextInput
+      type={type || 'text'}
+      id={id}
+      labelText={displayLabel}
+      value={value || ''}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+      onBlur={(e: React.FocusEvent<HTMLInputElement>) => onBlur && onBlur(id, e.target.value)}
+      onFocus={(e: React.FocusEvent<HTMLInputElement>) => onFocus && onFocus(id, e.target.value)}
+      placeholder={placeholder || schema?.default?.toString()}
+      required={required}
+      disabled={disabled || readonly}
+      invalid={rawErrors.length > 0}
+      invalidText={rawErrors.join('. ')}
+      autoComplete={type === 'password' ? 'current-password' : undefined}
+      autoFocus={autofocus}
+    />
   );
 }
 
