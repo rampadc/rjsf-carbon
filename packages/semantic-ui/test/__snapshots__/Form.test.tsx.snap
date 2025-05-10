@@ -1,0 +1,3336 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`semantic-ui specific tests field with special semantic options 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-object"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <h5
+        className="ui dividing header"
+        id="root__title"
+      >
+        A registration form
+      </h5>
+      <p
+        className="sui-description"
+        id="root__description"
+      >
+        A simple test theme form example.
+      </p>
+      <div
+        className="rjsf-field rjsf-field-string"
+      >
+        <div
+          className="grouped equal width fields"
+        >
+          <div
+            className="required field"
+          >
+            <label
+              htmlFor="root_test"
+            >
+              test
+            </label>
+            <div
+              aria-describedby="root_test__error root_test__description root_test__help"
+              aria-disabled={false}
+              aria-expanded={false}
+              aria-multiselectable={false}
+              autoFocus={false}
+              className="ui fluid selection scrolling dropdown"
+              id="root_test"
+              inverted="false"
+              name="root_test"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              readOnly={false}
+              required={true}
+              role="listbox"
+              tabIndex={0}
+            >
+              <div
+                aria-atomic={true}
+                aria-live="polite"
+                className="divider text"
+                role="alert"
+              />
+              <i
+                aria-hidden="true"
+                className="dropdown icon"
+                onClick={[Function]}
+              />
+              <div
+                className="menu transition"
+              >
+                <div
+                  aria-checked={true}
+                  aria-selected={true}
+                  className="active selected item"
+                  onClick={[Function]}
+                  role="option"
+                  style={
+                    {
+                      "pointerEvents": "all",
+                    }
+                  }
+                >
+                  <span
+                    className="text"
+                  />
+                </div>
+                <div
+                  aria-checked={false}
+                  aria-disabled={false}
+                  aria-selected={false}
+                  className="item"
+                  onClick={[Function]}
+                  role="option"
+                  style={
+                    {
+                      "pointerEvents": "all",
+                    }
+                  }
+                >
+                  <span
+                    className="text"
+                  >
+                    1
+                  </span>
+                </div>
+                <div
+                  aria-checked={false}
+                  aria-disabled={false}
+                  aria-selected={false}
+                  className="item"
+                  onClick={[Function]}
+                  role="option"
+                  style={
+                    {
+                      "pointerEvents": "all",
+                    }
+                  }
+                >
+                  <span
+                    className="text"
+                  >
+                    2
+                  </span>
+                </div>
+                <div
+                  aria-checked={false}
+                  aria-disabled={false}
+                  aria-selected={false}
+                  className="item"
+                  onClick={[Function]}
+                  role="option"
+                  style={
+                    {
+                      "pointerEvents": "all",
+                    }
+                  }
+                >
+                  <span
+                    className="text"
+                  >
+                    3
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields checkbox field 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-boolean"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui checkbox"
+          inverted="false"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseDown={[Function]}
+          onMouseUp={[Function]}
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            checked={false}
+            className="hidden"
+            disabled={false}
+            id="root"
+            name="root"
+            readOnly={true}
+            required={false}
+            tabIndex={0}
+            type="checkbox"
+          />
+          <label
+            htmlFor="root"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields checkbox field with label 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-boolean"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui checkbox"
+          inverted="false"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseDown={[Function]}
+          onMouseUp={[Function]}
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            checked={false}
+            className="hidden"
+            disabled={false}
+            id="root"
+            name="root"
+            readOnly={true}
+            required={false}
+            tabIndex={0}
+            type="checkbox"
+          />
+          <label
+            htmlFor="root"
+          >
+            test
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields checkbox field with label and description 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-boolean"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <p
+        className="sui-description"
+        id="root__description"
+      >
+        test description
+      </p>
+      <div
+        className="field"
+      >
+        <div
+          className="ui checkbox"
+          inverted="false"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseDown={[Function]}
+          onMouseUp={[Function]}
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            checked={false}
+            className="hidden"
+            disabled={false}
+            id="root"
+            name="root"
+            readOnly={true}
+            required={false}
+            tabIndex={0}
+            type="checkbox"
+          />
+          <label
+            htmlFor="root"
+          >
+            test
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields checkbox field with label and rich text description 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-boolean"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <p
+        className="sui-description"
+        id="root__description"
+      >
+        <span>
+          <strong>
+            test
+          </strong>
+           
+          <strong>
+            description
+          </strong>
+        </span>
+      </p>
+      <div
+        className="field"
+      >
+        <div
+          className="ui checkbox"
+          inverted="false"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseDown={[Function]}
+          onMouseUp={[Function]}
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            checked={false}
+            className="hidden"
+            disabled={false}
+            id="root"
+            name="root"
+            readOnly={true}
+            required={false}
+            tabIndex={0}
+            type="checkbox"
+          />
+          <label
+            htmlFor="root"
+          >
+            test
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields checkboxes field 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-array"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <h5
+        className="ui dividing header"
+        id="root__title"
+      >
+        An enum list rendered as checkboxes
+      </h5>
+      <div
+        className="grouped fields"
+        id="root"
+        name="root"
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui checkbox"
+            inverted="false"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              autoFocus={false}
+              checked={false}
+              className="hidden"
+              disabled={false}
+              id="root-0"
+              name="root"
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label
+              htmlFor="root-0"
+            >
+              foo
+            </label>
+          </div>
+        </div>
+        <div
+          className="field"
+        >
+          <div
+            className="ui checkbox"
+            inverted="false"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              autoFocus={false}
+              checked={false}
+              className="hidden"
+              disabled={false}
+              id="root-1"
+              name="root"
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label
+              htmlFor="root-1"
+            >
+              bar
+            </label>
+          </div>
+        </div>
+        <div
+          className="field"
+        >
+          <div
+            className="ui checkbox"
+            inverted="false"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              autoFocus={false}
+              checked={false}
+              className="hidden"
+              disabled={false}
+              id="root-2"
+              name="root"
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label
+              htmlFor="root-2"
+            >
+              fuzz
+            </label>
+          </div>
+        </div>
+        <div
+          className="field"
+        >
+          <div
+            className="ui checkbox"
+            inverted="false"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              autoFocus={false}
+              checked={false}
+              className="hidden"
+              disabled={false}
+              id="root-3"
+              name="root"
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label
+              htmlFor="root-3"
+            >
+              qux
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields field with description 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-object"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="rjsf-field rjsf-field-string"
+      >
+        <div
+          className="grouped equal width fields"
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="root_my-field"
+            >
+              my-field
+            </label>
+            <div
+              className="ui fluid input"
+            >
+              <input
+                aria-describedby="root_my-field__error root_my-field__description root_my-field__help"
+                autoFocus={false}
+                disabled={false}
+                id="root_my-field"
+                name="root_my-field"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder=""
+                required={false}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <p
+            className="sui-description"
+            id="root_my-field__description"
+          >
+            some description
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields field with description in uiSchema 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-object"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="rjsf-field rjsf-field-string"
+      >
+        <div
+          className="grouped equal width fields"
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="root_my-field"
+            >
+              my-field
+            </label>
+            <div
+              className="ui fluid input"
+            >
+              <input
+                aria-describedby="root_my-field__error root_my-field__description root_my-field__help"
+                autoFocus={false}
+                disabled={false}
+                id="root_my-field"
+                name="root_my-field"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder=""
+                required={false}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <p
+            className="sui-description"
+            id="root_my-field__description"
+          >
+            some other description
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields field with markdown description 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-object"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="rjsf-field rjsf-field-string"
+      >
+        <div
+          className="grouped equal width fields"
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="root_my-field"
+            >
+              my-field
+            </label>
+            <div
+              className="ui fluid input"
+            >
+              <input
+                aria-describedby="root_my-field__error root_my-field__description root_my-field__help"
+                autoFocus={false}
+                disabled={false}
+                id="root_my-field"
+                name="root_my-field"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder=""
+                required={false}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <p
+            className="sui-description"
+            id="root_my-field__description"
+          >
+            <span>
+              some 
+              <strong>
+                Rich
+              </strong>
+               description
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields field with markdown description in uiSchema 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-object"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="rjsf-field rjsf-field-string"
+      >
+        <div
+          className="grouped equal width fields"
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="root_my-field"
+            >
+              my-field
+            </label>
+            <div
+              className="ui fluid input"
+            >
+              <input
+                aria-describedby="root_my-field__error root_my-field__description root_my-field__help"
+                autoFocus={false}
+                disabled={false}
+                id="root_my-field"
+                name="root_my-field"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder=""
+                required={false}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <p
+            className="sui-description"
+            id="root_my-field__description"
+          >
+            <span>
+              some other description
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields format color 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            type="color"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields format date 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            type="date"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields format datetime 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            type="datetime-local"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields format time 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            type="time"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields help and error display 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="ui negative message"
+  >
+    <div
+      className="header"
+    >
+      Errors
+    </div>
+    <ul
+      className="list"
+    >
+      <li
+        className="content"
+      >
+        . an error
+      </li>
+    </ul>
+  </div>
+  <div
+    className="rjsf-field rjsf-field-string rjsf-field-error"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="error field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            aria-invalid={true}
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        className="ui mini info message"
+        id="root__help"
+      >
+        <div
+          className="content"
+        >
+          <p>
+            help me!
+          </p>
+        </div>
+      </div>
+      <div
+        className="ui red pointing above small basic label"
+        id="root__error"
+        onClick={[Function]}
+      >
+        <div
+          className="ui bulleted list"
+          role="list"
+        >
+          <div
+            className="item"
+            onClick={[Function]}
+            role="listitem"
+          >
+            an error
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields hidden field 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-object"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        style={
+          {
+            "display": "none",
+          }
+        }
+      >
+        <input
+          id="root_my-field"
+          name="root_my-field"
+          type="hidden"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields hidden label 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields null field 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-null"
+  >
+    <div
+      className="grouped equal width fields"
+    />
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields number field 0 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-number"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            step="any"
+            type="number"
+            value={0}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields number field 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-number"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            step="any"
+            type="number"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields password field 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            type="password"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields radio field 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-boolean"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="grouped fields"
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui radio checkbox"
+            fluid={true}
+            inverted={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              checked={false}
+              className="hidden"
+              disabled={false}
+              id="root-0"
+              name="root"
+              readOnly={true}
+              tabIndex={0}
+              type="radio"
+              value="0"
+            />
+            <label
+              htmlFor="root-0"
+            >
+              Yes
+            </label>
+          </div>
+        </div>
+        <div
+          className="field"
+        >
+          <div
+            className="ui radio checkbox"
+            fluid={true}
+            inverted={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              checked={false}
+              className="hidden"
+              disabled={false}
+              id="root-1"
+              name="root"
+              readOnly={true}
+              tabIndex={0}
+              type="radio"
+              value="1"
+            />
+            <label
+              htmlFor="root-1"
+            >
+              No
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields schema examples 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help root__examples"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            list="root__examples"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <datalist
+        id="root__examples"
+      >
+        <option
+          value="Firefox"
+        />
+        <option
+          value="Chrome"
+        />
+        <option
+          value="Opera"
+        />
+        <option
+          value="Vivaldi"
+        />
+        <option
+          value="Safari"
+        />
+      </datalist>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields select field 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          aria-describedby="root__error root__description root__help"
+          aria-disabled={false}
+          aria-expanded={false}
+          aria-multiselectable={false}
+          autoFocus={false}
+          className="ui fluid selection scrolling dropdown"
+          id="root"
+          inverted="false"
+          name="root"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          readOnly={false}
+          role="listbox"
+          tabIndex={0}
+        >
+          <div
+            aria-atomic={true}
+            aria-live="polite"
+            className="divider text"
+            role="alert"
+          />
+          <i
+            aria-hidden="true"
+            className="dropdown icon"
+            onClick={[Function]}
+          />
+          <div
+            className="menu transition"
+          >
+            <div
+              aria-checked={true}
+              aria-selected={true}
+              className="active selected item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              />
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                foo
+              </span>
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                bar
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields select field multiple choice 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-array"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          aria-describedby="root__error root__description root__help"
+          aria-disabled={false}
+          aria-expanded={false}
+          aria-multiselectable={true}
+          autoFocus={false}
+          className="ui fluid multiple selection scrolling dropdown"
+          id="root"
+          inverted="false"
+          name="root"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          readOnly={false}
+          required={false}
+          role="listbox"
+          tabIndex={0}
+        >
+          <i
+            aria-hidden="true"
+            className="dropdown icon"
+            onClick={[Function]}
+          />
+          <div
+            className="menu transition"
+          >
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={true}
+              className="selected item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                foo
+              </span>
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                bar
+              </span>
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                fuzz
+              </span>
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                qux
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields select field multiple choice enumDisabled 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-array"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          aria-describedby="root__error root__description root__help"
+          aria-disabled={false}
+          aria-expanded={false}
+          aria-multiselectable={true}
+          autoFocus={false}
+          className="ui fluid multiple selection scrolling dropdown"
+          id="root"
+          inverted="false"
+          name="root"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          readOnly={false}
+          required={false}
+          role="listbox"
+          tabIndex={0}
+        >
+          <i
+            aria-hidden="true"
+            className="dropdown icon"
+            onClick={[Function]}
+          />
+          <div
+            className="menu transition"
+          >
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={true}
+              className="selected item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                foo
+              </span>
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={true}
+              aria-selected={false}
+              className="disabled item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                bar
+              </span>
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                fuzz
+              </span>
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                qux
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields select field multiple choice enumDisabled using checkboxes 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-array"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="grouped fields"
+        id="root"
+        name="root"
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui checkbox"
+            inverted="false"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              autoFocus={false}
+              checked={false}
+              className="hidden"
+              disabled={false}
+              id="root-0"
+              name="root"
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label
+              htmlFor="root-0"
+            >
+              foo
+            </label>
+          </div>
+        </div>
+        <div
+          className="disabled field"
+        >
+          <div
+            className="ui disabled checkbox"
+            inverted="false"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              autoFocus={false}
+              checked={false}
+              className="hidden"
+              disabled={true}
+              id="root-1"
+              name="root"
+              readOnly={true}
+              tabIndex={-1}
+              type="checkbox"
+            />
+            <label
+              htmlFor="root-1"
+            >
+              bar
+            </label>
+          </div>
+        </div>
+        <div
+          className="field"
+        >
+          <div
+            className="ui checkbox"
+            inverted="false"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              autoFocus={false}
+              checked={false}
+              className="hidden"
+              disabled={false}
+              id="root-2"
+              name="root"
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label
+              htmlFor="root-2"
+            >
+              fuzz
+            </label>
+          </div>
+        </div>
+        <div
+          className="field"
+        >
+          <div
+            className="ui checkbox"
+            inverted="false"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              autoFocus={false}
+              checked={false}
+              className="hidden"
+              disabled={false}
+              id="root-3"
+              name="root"
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label
+              htmlFor="root-3"
+            >
+              qux
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields select field multiple choice formData 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-array"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          aria-describedby="root__error root__description root__help"
+          aria-disabled={false}
+          aria-expanded={false}
+          aria-multiselectable={true}
+          autoFocus={false}
+          className="ui fluid multiple selection scrolling dropdown"
+          id="root"
+          inverted="false"
+          name="root"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          readOnly={false}
+          required={false}
+          role="listbox"
+          tabIndex={0}
+        >
+          <a
+            className="ui label"
+            onClick={[Function]}
+            value="0"
+          >
+            foo
+            <i
+              aria-hidden="true"
+              className="delete icon"
+              onClick={[Function]}
+            />
+          </a>
+          <a
+            className="ui label"
+            onClick={[Function]}
+            value="1"
+          >
+            bar
+            <i
+              aria-hidden="true"
+              className="delete icon"
+              onClick={[Function]}
+            />
+          </a>
+          <i
+            aria-hidden="true"
+            className="dropdown icon"
+            onClick={[Function]}
+          />
+          <div
+            className="menu transition"
+          >
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={true}
+              className="selected item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                fuzz
+              </span>
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                qux
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields select field multiple choice with labels 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-array"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          aria-describedby="root__error root__description root__help"
+          aria-disabled={false}
+          aria-expanded={false}
+          aria-multiselectable={true}
+          autoFocus={false}
+          className="ui fluid multiple selection scrolling dropdown"
+          id="root"
+          inverted="false"
+          name="root"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          readOnly={false}
+          required={false}
+          role="listbox"
+          tabIndex={0}
+        >
+          <i
+            aria-hidden="true"
+            className="dropdown icon"
+            onClick={[Function]}
+          />
+          <div
+            className="menu transition"
+          >
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={true}
+              className="selected item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                Blue
+              </span>
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                Red
+              </span>
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                Green
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields select field single choice enumDisabled 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          aria-describedby="root__error root__description root__help"
+          aria-disabled={false}
+          aria-expanded={false}
+          aria-multiselectable={false}
+          autoFocus={false}
+          className="ui fluid selection scrolling dropdown"
+          id="root"
+          inverted="false"
+          name="root"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          readOnly={false}
+          role="listbox"
+          tabIndex={0}
+        >
+          <div
+            aria-atomic={true}
+            aria-live="polite"
+            className="divider text"
+            role="alert"
+          />
+          <i
+            aria-hidden="true"
+            className="dropdown icon"
+            onClick={[Function]}
+          />
+          <div
+            className="menu transition"
+          >
+            <div
+              aria-checked={true}
+              aria-selected={true}
+              className="active selected item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              />
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                foo
+              </span>
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={true}
+              aria-selected={false}
+              className="disabled item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                bar
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields select field single choice enumDisabled using radio widget 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="grouped fields"
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui radio checkbox"
+            fluid={true}
+            inverted={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              checked={false}
+              className="hidden"
+              disabled={false}
+              id="root-0"
+              name="root"
+              readOnly={true}
+              tabIndex={0}
+              type="radio"
+              value="0"
+            />
+            <label
+              htmlFor="root-0"
+            >
+              foo
+            </label>
+          </div>
+        </div>
+        <div
+          className="disabled field"
+        >
+          <div
+            className="ui disabled radio checkbox"
+            fluid={true}
+            inverted={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              checked={false}
+              className="hidden"
+              disabled={true}
+              id="root-1"
+              name="root"
+              readOnly={true}
+              tabIndex={-1}
+              type="radio"
+              value="1"
+            />
+            <label
+              htmlFor="root-1"
+            >
+              bar
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields select field single choice form disabled using radio widget 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="grouped fields"
+      >
+        <div
+          className="disabled field"
+        >
+          <div
+            className="ui disabled radio checkbox"
+            fluid={true}
+            inverted={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              checked={false}
+              className="hidden"
+              disabled={true}
+              id="root-0"
+              name="root"
+              readOnly={true}
+              tabIndex={-1}
+              type="radio"
+              value="0"
+            />
+            <label
+              htmlFor="root-0"
+            >
+              foo
+            </label>
+          </div>
+        </div>
+        <div
+          className="disabled field"
+        >
+          <div
+            className="ui disabled radio checkbox"
+            fluid={true}
+            inverted={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              checked={false}
+              className="hidden"
+              disabled={true}
+              id="root-1"
+              name="root"
+              readOnly={true}
+              tabIndex={-1}
+              type="radio"
+              value="1"
+            />
+            <label
+              htmlFor="root-1"
+            >
+              bar
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary disabled button"
+    disabled={true}
+    onClick={[Function]}
+    tabIndex={-1}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields select field single choice formData 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          aria-describedby="root__error root__description root__help"
+          aria-disabled={false}
+          aria-expanded={false}
+          aria-multiselectable={false}
+          autoFocus={false}
+          className="ui fluid selection scrolling dropdown"
+          id="root"
+          inverted="false"
+          name="root"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          readOnly={false}
+          role="listbox"
+          tabIndex={0}
+        >
+          <div
+            aria-atomic={true}
+            aria-live="polite"
+            className="divider text"
+            role="alert"
+          >
+            bar
+          </div>
+          <i
+            aria-hidden="true"
+            className="dropdown icon"
+            onClick={[Function]}
+          />
+          <div
+            className="menu transition"
+          >
+            <div
+              aria-checked={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              />
+            </div>
+            <div
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                foo
+              </span>
+            </div>
+            <div
+              aria-checked={true}
+              aria-disabled={false}
+              aria-selected={true}
+              className="active selected item"
+              onClick={[Function]}
+              role="option"
+              style={
+                {
+                  "pointerEvents": "all",
+                }
+              }
+            >
+              <span
+                className="text"
+              >
+                bar
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields select field single choice uiSchema disabled using radio widget 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="grouped fields"
+      >
+        <div
+          className="disabled field"
+        >
+          <div
+            className="ui disabled radio checkbox"
+            fluid={true}
+            inverted={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              checked={false}
+              className="hidden"
+              disabled={true}
+              id="root-0"
+              name="root"
+              readOnly={true}
+              tabIndex={-1}
+              type="radio"
+              value="0"
+            />
+            <label
+              htmlFor="root-0"
+            >
+              foo
+            </label>
+          </div>
+        </div>
+        <div
+          className="disabled field"
+        >
+          <div
+            className="ui disabled radio checkbox"
+            fluid={true}
+            inverted={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              checked={false}
+              className="hidden"
+              disabled={true}
+              id="root-1"
+              name="root"
+              readOnly={true}
+              tabIndex={-1}
+              type="radio"
+              value="1"
+            />
+            <label
+              htmlFor="root-1"
+            >
+              bar
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields slider field 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-integer"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="ui fluid input"
+      >
+        <input
+          aria-describedby="root__error root__description root__help"
+          disabled={false}
+          id="root"
+          max={100}
+          min={42}
+          name="root"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          type="range"
+          value={75}
+        />
+      </div>
+      <span>
+        75
+      </span>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields string field format data-url 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div>
+        <div
+          className="field"
+        >
+          <div
+            className="ui fluid input"
+          >
+            <input
+              aria-describedby="root__error root__description root__help"
+              autoFocus={false}
+              disabled={false}
+              id="root"
+              name="root"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder=""
+              type="file"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields string field format email 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            type="email"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields string field format uri 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            type="url"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields string field regular 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields string field with placeholder 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="placeholder"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields textarea field 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <textarea
+          aria-describedby="root__error root__description root__help"
+          autoFocus={false}
+          disabled={false}
+          id="root"
+          inverted="false"
+          name="root"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onInput={[Function]}
+          placeholder=""
+          rows={5}
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields title field 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-object"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <h5
+        className="ui dividing header"
+        id="root__title"
+      >
+        Titre 1
+      </h5>
+      <div
+        className="rjsf-field rjsf-field-string"
+      >
+        <div
+          className="grouped equal width fields"
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="root_title"
+            >
+              Titre 2
+            </label>
+            <div
+              className="ui fluid input"
+            >
+              <input
+                aria-describedby="root_title__error root_title__description root_title__help"
+                autoFocus={false}
+                disabled={false}
+                id="root_title"
+                name="root_title"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder=""
+                required={false}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields unsupported field 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-undefined"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="unsupported-field"
+      >
+        <p>
+          <span>
+            Unsupported field schema for field 
+            <code>
+              root
+            </code>
+            : 
+            <em>
+              Unknown field type undefined
+            </em>
+            .
+          </span>
+        </p>
+        <pre>
+          {}
+        </pre>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields up/down field 1`] = `
+<form
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-number"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            type="number"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`single fields using custom tagName 1`] = `
+<div
+  className="ui form rjsf"
+  noValidate={false}
+  onSubmit={[Function]}
+>
+  <div
+    className="rjsf-field rjsf-field-string"
+  >
+    <div
+      className="grouped equal width fields"
+    >
+      <div
+        className="field"
+      >
+        <div
+          className="ui fluid input"
+        >
+          <input
+            aria-describedby="root__error root__description root__help"
+            autoFocus={false}
+            disabled={false}
+            id="root"
+            name="root"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
+</div>
+`;

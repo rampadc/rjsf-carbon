@@ -1,0 +1,57 @@
+{
+  "extends": "nx/presets/npm.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        {
+          "//": "use only dependencies to avoid cycle @rjsf/core:build --> @rjsf/snapshot-tests:build --> @rjsf/core:build",
+          "projects": "dependencies",
+          "target": "^build"
+        }
+      ],
+      "cache": true
+    },
+    "cs-check": {
+      "cache": true
+    },
+    "cs-format": {
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "test": {
+      "cache": true
+    },
+    "test:update": {
+      "cache": true
+    },
+    "test:watch": {
+      "cache": true
+    },
+    "precommit": {
+      "cache": true
+    },
+    "publish-to-npm": {
+      "cache": true
+    },
+    "test-coverage": {
+      "cache": true
+    },
+    "build:lib": {
+      "cache": true
+    },
+    "prepublishOnly": {
+      "cache": true
+    },
+    "build:dist": {
+      "cache": true
+    },
+    "publish-to-gh-pages": {
+      "cache": true
+    }
+  },
+  "useInferencePlugins": false,
+  "defaultBase": "main",
+  "useLegacyCache": true
+}
