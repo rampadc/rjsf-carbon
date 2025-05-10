@@ -48,7 +48,7 @@ function TextWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends 
   props: WidgetProps<T, S, F>,
 ): ReactElement {
   const { id, required, label, value, onChange, disabled, readonly, placeholder, schema } = props;
-  const displayLabel = label || schema.title || '';
+  const displayLabel = `${label || schema.title || ''}${required ? ' (required)' : ''}`;
 
   return (
     <TextInput
@@ -57,6 +57,7 @@ function TextWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends 
       value={value || ''}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
       required={required}
+      aria-required={required}
       disabled={disabled || readonly}
       placeholder={placeholder || schema?.default?.toString() || 'Enter value'}
       helperText={schema?.description?.toString()}
@@ -83,7 +84,7 @@ function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
 
   const commonProps = {
     id,
-    titleText: label || schema.title,
+    titleText: `${label || schema.title}${required ? ' (required)' : ''}`,
     helperText: schema.description,
     disabled: disabled || readonly,
     required,
@@ -155,8 +156,8 @@ function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
 function CheckboxWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
 ): ReactElement {
-  const { id, label, value, onChange, disabled, readonly, schema, onBlur, onFocus } = props;
-  const displayLabel = label || schema.title || '';
+  const { id, label, value, onChange, disabled, readonly, schema, onBlur, onFocus, required } = props;
+  const displayLabel = `${label || schema.title || ''}${required ? ' (required)' : ''}`;
 
   return (
     <div className='cds--form-item'>
@@ -171,6 +172,8 @@ function CheckboxWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F exte
         onFocus={() => onFocus && onFocus(id, value)}
         disabled={disabled || readonly}
         aria-describedby={ariaDescribedByIds<T>(id)}
+        required={required}
+        aria-required={required}
       />
       {schema?.description && <div className='cds--form__helper-text'>{schema.description.toString()}</div>}
     </div>
@@ -195,7 +198,7 @@ function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
     onFocus,
     options,
   } = props;
-  const displayLabel = label || schema.title || '';
+  const displayLabel = `${label || schema.title || ''}${required ? ' (required)' : ''}`;
 
   const handleChange = (_event: React.MouseEvent<HTMLButtonElement>, state: { value: string | number }) => {
     if (state.value === '') {
@@ -235,7 +238,7 @@ function TextareaWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F exte
   props: WidgetProps<T, S, F>,
 ): ReactElement {
   const { id, required, label, value, onChange, disabled, readonly, schema, placeholder, onBlur, onFocus } = props;
-  const displayLabel = label || schema.title || '';
+  const displayLabel = `${label || schema.title || ''}${required ? ' (required)' : ''}`;
 
   return (
     <TextArea
@@ -259,7 +262,7 @@ function RangeWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
 ): ReactElement {
   const { id, value, required, disabled, readonly, label, schema, onChange, onBlur, onFocus } = props;
 
-  const displayLabel = label || schema.title || '';
+  const displayLabel = `${label || schema.title || ''}${required ? ' (required)' : ''}`;
   const min = schema.minimum || 0;
   const max = schema.maximum || 100;
   const step = schema.multipleOf || 1;
@@ -289,8 +292,8 @@ function RangeWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
 function DateWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
 ): ReactElement {
-  const { id, label, onChange, disabled, readonly, schema, onBlur, onFocus, value } = props;
-  const displayLabel = label || schema.title || '';
+  const { id, label, onChange, disabled, readonly, schema, onBlur, onFocus, value, required } = props;
+  const displayLabel = `${label || schema.title || ''}${required ? ' (required)' : ''}`;
 
   return (
     <DatePicker datePickerType='single' dateFormat='Y-m-d'>
@@ -307,6 +310,7 @@ function DateWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends 
         placeholder='yyyy-mm-dd'
         helperText={schema?.description?.toString()}
         aria-describedby={ariaDescribedByIds<T>(id)}
+        aria-required={required}
       />
     </DatePicker>
   );
@@ -315,8 +319,8 @@ function DateWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends 
 function AltDateTimeWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
 ): ReactElement {
-  const { id, label, onChange, disabled, readonly, schema, value } = props;
-  const displayLabel = label || schema.title || '';
+  const { id, label, onChange, disabled, readonly, schema, value, required } = props;
+  const displayLabel = `${label || schema.title || ''}${required ? ' (required)' : ''}`;
 
   const handleDateChange = (dates: Date[]) => {
     if (dates && dates[0]) {
@@ -336,6 +340,7 @@ function AltDateTimeWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
           defaultValue={value ? new Date(value).toLocaleDateString() : ''}
           disabled={disabled || readonly}
           aria-describedby={ariaDescribedByIds<T>(id)}
+          aria-required={required}
         />
       </DatePicker>
       {/* ... rest of the component */}
@@ -478,9 +483,9 @@ function RemoveButton<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
 function RadioWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
 ): ReactElement {
-  const { id, options, value, disabled, readonly, label, onChange, schema } = props;
+  const { id, options, value, disabled, readonly, label, onChange, schema, required } = props;
   const { enumOptions, enumDisabled } = options;
-  const displayLabel = label || schema.title || '';
+  const displayLabel = `${label || schema.title || ''}${required ? ' (required)' : ''}`;
 
   return (
     <div className='cds--form-item'>
@@ -502,6 +507,8 @@ function RadioWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
                 onChange={(value: string | number | undefined) => {
                   onChange(value);
                 }}
+                required={required}
+                aria-required={required}
               />
             );
           })}
@@ -589,6 +596,7 @@ function BaseInputTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
         id={id}
         type={type || 'text'}
         required={required}
+        aria-required={required}
         disabled={disabled || readonly}
         value={value || value === 0 ? value : ''}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
