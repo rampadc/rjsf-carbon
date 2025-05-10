@@ -28,7 +28,7 @@ export default function Playground({ themes, validators }: PlaygroundProps) {
   const [formData, setFormData] = useState<any>(samples.Simple.formData);
   const [extraErrors, setExtraErrors] = useState<ErrorSchema | undefined>();
   const [shareURL, setShareURL] = useState<string | null>(null);
-  const [theme, setTheme] = useState<string>('default');
+  const [theme, setTheme] = useState<string>('carbon');
   const [sampleName, setSampleName] = useState<string>('Simple');
   const [subtheme, setSubtheme] = useState<string | null>(null);
   const [stylesheet, setStylesheet] = useState<string | null>(null);

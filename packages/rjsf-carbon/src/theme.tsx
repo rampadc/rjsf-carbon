@@ -10,6 +10,9 @@ import {
   TemplatesType,
   IconButtonProps,
   SubmitButtonProps,
+  ArrayFieldTemplateProps,
+  ErrorListProps,
+  BaseInputTemplateProps,
 } from '@rjsf/utils';
 import { FormProps, IChangeEvent, ThemeProps } from '@rjsf/core';
 import {
@@ -24,7 +27,12 @@ import {
   Stack,
   ComboBox,
   Button,
+  Tile,
+  Slider,
+  RadioButton,
+  InlineNotification,
 } from '@carbon/react';
+import { Add } from '@carbon/icons-react';
 
 interface EnumOption {
   label: string;
@@ -142,26 +150,50 @@ function CheckboxWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F exte
 function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>,
 ): ReactElement {
-  const { id, required, label, value, onChange, disabled, readonly, schema, placeholder } = props;
+  const { id, required, label, value, onChange, disabled, readonly, schema, placeholder, rawErrors = [] } = props;
   const displayLabel = label || schema.title || '';
 
+  // Handle both number inputs and sliders
+  if (props.options.widget === 'range') {
+    return (
+      <div className='cds--form-item'>
+        <Slider
+          id={id}
+          labelText={displayLabel}
+          value={value || schema.minimum || 0}
+          min={schema.minimum as number}
+          max={schema.maximum as number}
+          step={schema.multipleOf || 1}
+          onChange={(data: { value: number }) => onChange(data.value)}
+          disabled={disabled || readonly}
+        />
+        <span className='cds--slider-value'>{value}</span>
+      </div>
+    );
+  }
+
   return (
-    <NumberInput
-      id={id}
-      label={displayLabel}
-      value={(value as number) || 0}
-      onChange={(_event: React.MouseEvent<HTMLButtonElement>, state: { value: string | number; direction: string }) => {
-        const numericValue = typeof state.value === 'string' ? parseFloat(state.value) : state.value;
-        onChange(numericValue);
-      }}
-      required={required}
-      disabled={disabled || readonly}
-      helperText={schema?.description?.toString()}
-      placeholder={placeholder || schema?.default?.toString() || 'Enter value'}
-      step={(schema?.multipleOf as number) || 1}
-      min={schema?.minimum as number}
-      max={schema?.maximum as number}
-    />
+    <div className='cds--form-item'>
+      <NumberInput
+        id={id}
+        label={displayLabel}
+        value={value}
+        onChange={(_event: React.MouseEvent<HTMLButtonElement>, state: { value: string | number }) => {
+          const numericValue = typeof state.value === 'string' ? parseFloat(state.value) : state.value;
+          onChange(numericValue);
+        }}
+        required={required}
+        disabled={disabled || readonly}
+        invalid={rawErrors.length > 0}
+        invalidText={rawErrors.join('. ')}
+        helperText={schema?.description?.toString()}
+        placeholder={placeholder || schema?.default?.toString()}
+        step={schema.multipleOf || 1}
+        min={schema.minimum as number}
+        max={schema.maximum as number}
+        hideSteppers={false}
+      />
+    </div>
   );
 }
 
@@ -217,7 +249,7 @@ function SubmitButton<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
   const { uiSchema, ...otherProps } = props;
 
   return (
-    <Button kind='primary' type='submit' {...otherProps}>
+    <Button kind='primary' type='submit' {...otherProps} style={{ marginLeft: '1rem' }}>
       Submit
     </Button>
   );
@@ -241,16 +273,15 @@ function FieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F exten
 }
 
 const formStyle = {
-  padding: '1rem 1rem 2rem 1rem', // Top: 16px, Right: 16px, Bottom: 32px, Left: 16px
+  padding: '1rem 1rem 2rem 1rem', // Top: 16px, Right: 16px, Bottom: 32px, Left: 0px
 };
 
 function ObjectFieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: ObjectFieldTemplateProps<T, S, F>,
 ): ReactElement {
-  const { properties, title, description } = props;
+  const { description, title, properties } = props;
 
   return (
-    // Use a div with cds--form class to style like a Carbon form
     <div className='cds--form' style={formStyle}>
       {(title || description) && (
         <div style={{ marginBottom: '2.5rem' }}>
@@ -279,7 +310,7 @@ function ObjectFieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F
 function FormTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: FormProps<T, S, F>,
 ): ReactElement {
-  const { children, onSubmit, schema } = props;
+  const { children, onSubmit } = props;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -291,11 +322,6 @@ function FormTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
   return (
     <form className='cds--form' style={formStyle} onSubmit={handleSubmit} noValidate={true}>
       {children}
-      <div style={{ marginTop: '3rem', marginLeft: '1rem' }}>
-        <Button kind='primary' type='submit'>
-          {(schema as any).submitButtonText || 'Submit'}
-        </Button>
-      </div>
     </form>
   );
 }
@@ -350,25 +376,135 @@ function RemoveButton<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
   );
 }
 
-// const CarbonTheme: ThemeProps<FormProps, RJSFSchema, UiSchema> = {
-//   widgets: {
-//     TextWidget,
-//     SelectWidget,
-//     CheckboxWidget,
-//     NumberWidget,
-//     TextareaWidget,
-//     DateWidget,
-//   },
+function RadioWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: WidgetProps<T, S, F>,
+): ReactElement {
+  const { id, options, value, disabled, readonly, label, onChange, schema } = props;
+  const { enumOptions, enumDisabled } = options;
+  const displayLabel = label || schema.title || '';
 
-//   templates: {
-//     FieldTemplate,
-//     ObjectFieldTemplate,
-//     ButtonTemplates: {
-//       SubmitButton,
-//     },
-//     FormTemplate, // Add the custom form template
-//   },
-// };
+  return (
+    <div className='cds--form-item'>
+      <div className='cds--label'>{displayLabel}</div>
+      <div className='cds--radio-button-group'>
+        {Array.isArray(enumOptions) &&
+          enumOptions.map((option, i) => {
+            const itemDisabled = Array.isArray(enumDisabled) && enumDisabled.indexOf(option.value) !== -1;
+
+            return (
+              <RadioButton
+                key={i}
+                id={`${id}-${i}`}
+                name={id}
+                value={option.value}
+                labelText={option.label}
+                checked={option.value === value}
+                disabled={disabled || itemDisabled || readonly}
+                onChange={(value: string | number | undefined) => {
+                  onChange(value);
+                }}
+              />
+            );
+          })}
+      </div>
+      {schema.description && <div className='cds--form__helper-text'>{schema.description}</div>}
+    </div>
+  );
+}
+
+function ArrayFieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: ArrayFieldTemplateProps<T, S, F>,
+): ReactElement {
+  const { canAdd, disabled, idSchema, items, onAddClick, readonly, required, schema, title } = props;
+
+  return (
+    <Stack gap={5}>
+      {title && (
+        <div className='cds--form-item'>
+          <label htmlFor={idSchema.$id} className='cds--label'>
+            {title}
+            {required && <span className='cds--label--required'>*</span>}
+          </label>
+          {schema.description && <div className='cds--form__helper-text'>{schema.description}</div>}
+        </div>
+      )}
+      <div className='cds--form-item'>
+        {items.map(({ key, ...itemProps }) => (
+          <Tile key={key} className='cds--tile--array-item'>
+            {itemProps.children}
+          </Tile>
+        ))}
+      </div>
+      {canAdd && (
+        <Button
+          kind='ghost'
+          onClick={onAddClick}
+          disabled={disabled || readonly}
+          renderIcon={Add}
+          iconDescription='Add item'
+          size='sm'
+        >
+          Add Item
+        </Button>
+      )}
+    </Stack>
+  );
+}
+
+function ErrorList<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>({
+  errors,
+}: ErrorListProps<T, S, F>): ReactElement {
+  return (
+    <Stack gap={3}>
+      {errors.map((error, i) => (
+        <InlineNotification key={i} kind='error' title='Error' subtitle={error.stack} hideCloseButton />
+      ))}
+    </Stack>
+  );
+}
+
+function BaseInputTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: BaseInputTemplateProps<T, S, F>,
+): ReactElement {
+  const {
+    id,
+    placeholder,
+    required,
+    readonly,
+    disabled,
+    type,
+    value,
+    onChange,
+    onBlur,
+    onFocus,
+    autofocus,
+    schema,
+    rawErrors = [],
+    label,
+    hideLabel,
+  } = props;
+
+  return (
+    <div className='cds--form-item'>
+      <TextInput
+        id={id}
+        type={type || 'text'}
+        required={required}
+        disabled={disabled || readonly}
+        value={value || value === 0 ? value : ''}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+        onBlur={(e: React.FocusEvent<HTMLInputElement>) => onBlur && onBlur(id, e.target.value)}
+        onFocus={(e: React.FocusEvent<HTMLInputElement>) => onFocus && onFocus(id, e.target.value)}
+        autoFocus={autofocus}
+        placeholder={placeholder || schema?.default?.toString()}
+        labelText={hideLabel ? undefined : label}
+        invalid={rawErrors.length > 0}
+        invalidText={rawErrors.join('. ')}
+        helperText={schema?.description?.toString()}
+      />
+    </div>
+  );
+}
 
 export function generateWidgets<
   T = any,
@@ -382,6 +518,7 @@ export function generateWidgets<
     NumberWidget,
     TextareaWidget,
     DateWidget,
+    RadioWidget,
   };
 }
 
@@ -394,6 +531,9 @@ export function generateTemplates<
     FieldTemplate,
     ObjectFieldTemplate,
     FormTemplate,
+    ArrayFieldTemplate,
+    ErrorListTemplate: ErrorList,
+    BaseInputTemplate,
     ButtonTemplates: {
       SubmitButton,
       AddButton,

@@ -7,7 +7,7 @@ import { __createChakraFrameProvider } from '@rjsf/chakra-ui';
 import { StyleProvider as AntdStyleProvider } from '@ant-design/cssinjs';
 import { __createFluentUIRCFrameProvider } from '@rjsf/fluentui-rc';
 import { __createDaisyUIFrameProvider } from '@rjsf/daisyui';
-
+import { __createCarbonFrameProvider } from 'rjsf-carbon';
 /*
 Adapted from https://github.com/mui-org/material-ui/blob/master/docs/src/modules/components/DemoSandboxed.js
 
@@ -94,6 +94,8 @@ export default function DemoFrame(props: DemoFrameProps) {
         })}
       </FrameContextConsumer>
     ) : null;
+  } else if (theme === 'carbon') {
+    body = <FrameContextConsumer>{__createCarbonFrameProvider(props)}</FrameContextConsumer>;
   }
 
   return (
