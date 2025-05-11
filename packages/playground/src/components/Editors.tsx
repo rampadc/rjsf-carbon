@@ -2,6 +2,11 @@ import { useCallback, useState } from 'react';
 import MonacoEditor from '@monaco-editor/react';
 import { ErrorSchema, RJSFSchema, UiSchema } from '@rjsf/utils';
 import isEqualWith from 'lodash/isEqualWith';
+import { 
+  Tile, 
+  Grid, 
+  Column,
+} from '@carbon/react';
 
 const monacoEditorOptions = {
   minimap: {
@@ -36,13 +41,13 @@ function Editor({ title, code, onChange }: EditorProps) {
     [setValid, onChange],
   );
 
-  const icon = valid ? 'ok' : 'remove';
-  const cls = valid ? 'valid' : 'invalid';
+  const validityIndicator = valid ? "✓" : "✗";
+  const validityClass = valid ? 'carbon-editor-valid' : 'carbon-editor-invalid';
 
   return (
-    <div className='panel panel-default'>
-      <div className='panel-heading'>
-        <span className={`${cls} glyphicon glyphicon-${icon}`} />
+    <Tile>
+      <div className='carbon-editor-heading'>
+        <span className={validityClass}>{validityIndicator}</span>
         {' ' + title}
       </div>
       <MonacoEditor
@@ -53,7 +58,7 @@ function Editor({ title, code, onChange }: EditorProps) {
         height={400}
         options={monacoEditorOptions}
       />
-    </div>
+    </Tile>
   );
 }
 
@@ -127,22 +132,18 @@ export default function Editors({
   const uiSchemaTitle = hasUiSchemaGenerator ? 'UISchema (regenerated on theme change)' : 'UiSchema';
 
   return (
-    <div className='col-sm-7'>
+    <div className="playground-editors">
       <Editor title='JSONSchema' code={toJson(schema)} onChange={onSchemaEdited} />
-      <div className='row'>
-        <div className='col-sm-6'>
+      <div className="playground-editors-row">
+        <div className="playground-editors-column">
           <Editor title={uiSchemaTitle} code={toJson(uiSchema)} onChange={onUISchemaEdited} />
         </div>
-        <div className='col-sm-6'>
+        <div className="playground-editors-column">
           <Editor title='formData' code={toJson(formData)} onChange={onFormDataEdited} />
         </div>
       </div>
       {extraErrors && (
-        <div className='row'>
-          <div className='col'>
-            <Editor title='extraErrors' code={toJson(extraErrors || {})} onChange={onExtraErrorsEdited} />
-          </div>
-        </div>
+        <Editor title='extraErrors' code={toJson(extraErrors)} onChange={onExtraErrorsEdited} />
       )}
     </div>
   );

@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Button, TextInput, CopyButton } from '@carbon/react';
 
 interface CopyLinkProps {
   shareURL: string | null;
@@ -15,20 +16,28 @@ export default function CopyLink({ shareURL, onShare }: CopyLinkProps) {
 
   if (!shareURL) {
     return (
-      <button className='btn btn-default' type='button' onClick={onShare}>
+      <Button kind="tertiary" size="sm" onClick={onShare}>
         Share
-      </button>
+      </Button>
     );
   }
 
   return (
-    <div className='input-group'>
-      <input type='text' ref={input} className='form-control' defaultValue={shareURL} />
-      <span className='input-group-btn'>
-        <button className='btn btn-default' type='button' onClick={onCopyClick}>
-          <i className='glyphicon glyphicon-copy' />
-        </button>
-      </span>
+    <div className='playground-copy-link'>
+      <TextInput
+        id="share-url-input"
+        type="text"
+        labelText=""
+        hideLabel
+        ref={input}
+        defaultValue={shareURL}
+        size="sm"
+      />
+      <CopyButton
+        onClick={onCopyClick}
+        iconDescription="Copy to clipboard"
+        feedback="Copied!"
+      />
     </div>
   );
 }

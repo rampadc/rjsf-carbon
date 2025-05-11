@@ -1,0 +1,223 @@
+@use '@carbon/react' with (
+  $use-akamai-cdn: true // pull fonts from akamai
+);
+
+@use '@carbon/styles/scss/theme';
+@use '@carbon/styles/scss/themes';
+
+// Default white theme for entire application
+:root {
+  @include theme.theme(themes.$white);
+}
+
+// Zone theming for the form container
+.playground-form-container[data-carbon-theme='white'] {
+  @include theme.theme(themes.$white);
+  color: var(--cds-text-primary);
+  background-color: var(--cds-background);
+}
+
+// Carbon theme integration for zones
+.playground-form-container[data-carbon-theme='g10'] {
+  @include theme.theme(themes.$g10);
+  color: var(--cds-text-primary);
+  background-color: var(--cds-background);
+}
+
+.playground-form-container[data-carbon-theme='g90'] {
+  @include theme.theme(themes.$g90);
+  color: var(--cds-text-primary);
+  background-color: var(--cds-background);
+}
+
+.playground-form-container[data-carbon-theme='g100'] {
+  @include theme.theme(themes.$g100);
+  color: var(--cds-text-primary);
+  background-color: var(--cds-background);
+}
+
+// Editor styling
+.carbon-editor-valid {
+  color: var(--cds-support-success);
+  margin-right: 0.5rem;
+}
+
+.carbon-editor-invalid {
+  color: var(--cds-support-error);
+  margin-right: 0.5rem;
+}
+
+.carbon-editor-heading {
+  padding: 0.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+// Playground components styling
+.playground-container {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+.playground-main-content {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0 -1rem;
+}
+
+.playground-header {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.playground-header-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -1rem;
+  margin-left: -1rem;
+}
+
+.playground-header-col {
+  flex: 1 1 200px;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.playground-form-container {
+  max-width: 100%;
+  height: 100%;
+  // Use zone theming to contain theme changes
+  isolation: isolate;
+  position: relative;
+  contain: content;
+}
+
+.playground-editors {
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.playground-editors-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  width: 100%;
+  gap: 1rem;
+}
+
+.playground-editors-column {
+  flex: 7;
+  width: 58.33%;
+  padding: 0 1rem;
+}
+
+.playground-form-column {
+  flex: 5;
+  width: 41.66%;
+  padding: 0 1rem;
+}
+
+.playground-editors-column .cds--tile {
+  height: 100%;
+  margin-bottom: 1rem;
+}
+
+.playground-editors-column > div > .cds--tile:first-child {
+  margin-bottom: 1rem;
+}
+
+.playground-form-column {
+  height: 100%;
+}
+
+.playground-editors-column .playground-editors-row > div {
+  flex: 1;
+  min-width: 300px;
+}
+
+.playground-copy-link {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+// Form styling
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form_rjsf_themeSelector,
+.form_rjsf_subthemeSelector,
+.form_rjsf_validatorSelector {
+  margin-bottom: 1rem;
+}
+
+.control-label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+// Footer styling
+.playground-footer {
+  margin-top: 3rem;
+  padding: 1rem;
+  border-top: 1px solid var(--cds-border-subtle);
+  width: 100%;
+}
+
+.playground-footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Make sure Monaco editor works properly
+.monaco-editor {
+  border: 1px solid var(--cds-border-subtle-01);
+  min-height: 300px;
+}
+
+// Monaco editor container
+.monaco-editor-container {
+  height: 400px;
+  width: 100%;
+}
+
+.monaco-editor {
+  width: 100% !important;
+  min-width: 100% !important;
+}
+
+// Fix spacing in the form
+.form_rjsf_themeSelector,
+.form_rjsf_subthemeSelector {
+  margin-bottom: 1rem;
+}
+
+// Media queries for responsive layout
+@media (max-width: 768px) {
+  .playground-main-content {
+    flex-direction: column;
+  }
+
+  .playground-editors-column,
+  .playground-form-column {
+    width: 100%;
+    flex: 1 1 100%;
+    padding: 0 1rem;
+  }
+}
+
+// Ensure the form and editors have proper height
+.playground-form-column,
+.playground-editors-column {
+  margin-bottom: 2rem;
+}

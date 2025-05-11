@@ -23,6 +23,24 @@ const validators: PlaygroundProps['validators'] = {
 };
 
 const themes: PlaygroundProps['themes'] = {
+  carbon: {
+    theme: CarbonTheme,
+    stylesheet: '', // Empty but included for compatibility
+    subthemes: {
+      white: {
+        dataTheme: 'white',
+      },
+      g10: {
+        dataTheme: 'g10',
+      },
+      g90: {
+        dataTheme: 'g90',
+      },
+      g100: {
+        dataTheme: 'g100',
+      },
+    },
+  },
   default: {
     stylesheet: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css',
     theme: {},
@@ -80,24 +98,6 @@ const themes: PlaygroundProps['themes'] = {
       },
       yeti: {
         stylesheet: '//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/yeti/bootstrap.min.css',
-      },
-    },
-  },
-  carbon: {
-    stylesheet: '//unpkg.com/@carbon/styles@1.81.0/css/styles.min.css',
-    theme: CarbonTheme,
-    subthemes: {
-      white: {
-        dataTheme: 'white',
-      },
-      g10: {
-        dataTheme: 'g10',
-      },
-      g90: {
-        dataTheme: 'g90',
-      },
-      g100: {
-        dataTheme: 'g100',
       },
     },
   },

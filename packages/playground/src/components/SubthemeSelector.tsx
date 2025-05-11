@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 import Form, { IChangeEvent } from '@rjsf/core';
 import { RJSFSchema, UiSchema } from '@rjsf/utils';
 import localValidator from '@rjsf/validator-ajv8';
+import { useFormTheme } from '../layout/Layout';
 
 const uiSchema: UiSchema = {
   'ui:placeholder': 'Select subtheme',
@@ -16,6 +17,9 @@ export interface SubthemesType {
   [subtheme: string]: SubthemeType;
 }
 
+// Define Carbon theme options more explicitly
+export type CarbonThemeType = 'white' | 'g10' | 'g90' | 'g100';
+
 interface SubthemeSelectorProps {
   subtheme: string | null;
   subthemes: SubthemesType;
@@ -23,6 +27,8 @@ interface SubthemeSelectorProps {
 }
 
 export default function SubthemeSelector({ subtheme, subthemes, select }: SubthemeSelectorProps) {
+  const { setFormTheme } = useFormTheme();
+  
   const schema: RJSFSchema = useMemo(
     () => ({
       type: 'string',
@@ -38,9 +44,12 @@ export default function SubthemeSelector({ subtheme, subthemes, select }: Subthe
         return;
       }
 
+      // Apply the Carbon theme only to the form container using data-carbon-theme
+      document.querySelector('.playground-form-container')?.setAttribute('data-carbon-theme', formData);
+      setFormTheme(formData as CarbonThemeType);
       return select(formData, subthemes[formData]);
     },
-    [select, subthemes],
+    [select, subthemes, setFormTheme],
   );
 
   return (

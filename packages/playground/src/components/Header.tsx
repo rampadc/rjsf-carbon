@@ -3,6 +3,7 @@ import Form, { IChangeEvent } from '@rjsf/core';
 import { RJSFSchema, UiSchema, ValidatorType } from '@rjsf/utils';
 import localValidator from '@rjsf/validator-ajv8';
 import base64 from '../utils/base64';
+import { Button, ButtonSet, Stack } from '@carbon/react';
 
 import CopyLink from './CopyLink';
 import ThemeSelector, { ThemesType } from './ThemeSelector';
@@ -18,17 +19,17 @@ const HeaderButton: React.FC<
   } & React.ButtonHTMLAttributes<HTMLButtonElement>
 > = ({ title, onClick, children, ...buttonProps }) => {
   return (
-    <button type='button' className='btn btn-default' title={title} onClick={onClick} {...buttonProps}>
+    <Button kind="ghost" title={title} onClick={onClick} {...buttonProps}>
       {children}
-    </button>
+    </Button>
   );
 };
 
 function HeaderButtons({ playGroundFormRef }: { playGroundFormRef: React.MutableRefObject<any> }) {
   return (
-    <>
-      <label className='control-label'>Programmatic</label>
-      <div className='btn-group'>
+    <Stack gap={3}>
+      <h6>Programmatic</h6>
+      <ButtonSet stacked>
         <HeaderButton
           title='Click me to submit the form programmatically.'
           onClick={() => playGroundFormRef.current.submit()}
@@ -47,8 +48,8 @@ function HeaderButtons({ playGroundFormRef }: { playGroundFormRef: React.Mutable
         >
           Reset
         </HeaderButton>
-      </div>
-    </>
+      </ButtonSet>
+    </Stack>
   );
 }
 
@@ -246,7 +247,6 @@ type HeaderProps = {
   onSampleSelected: SampleSelectorProps['onSelected'];
   onThemeSelected: (theme: string, themeObj: ThemesType) => void;
   setSubtheme: React.Dispatch<React.SetStateAction<string | null>>;
-  setStylesheet: React.Dispatch<React.SetStateAction<string | null>>;
   setValidator: React.Dispatch<React.SetStateAction<string>>;
   setLiveSettings: React.Dispatch<React.SetStateAction<LiveSettings>>;
   setShareURL: React.Dispatch<React.SetStateAction<string | null>>;
@@ -266,7 +266,7 @@ export default function Header({
   playGroundFormRef,
   onThemeSelected,
   setSubtheme,
-  setStylesheet,
+
   setValidator,
   setLiveSettings,
   setShareURL,
@@ -274,11 +274,10 @@ export default function Header({
   onSampleSelected,
 }: HeaderProps) {
   const onSubthemeSelected = useCallback(
-    (subtheme: any, { stylesheet }: { stylesheet: any }) => {
+    (subtheme: any, _: any) => {
       setSubtheme(subtheme);
-      setStylesheet(stylesheet);
     },
-    [setSubtheme, setStylesheet],
+    [setSubtheme],
   );
 
   const onValidatorSelected = useCallback(
@@ -321,13 +320,12 @@ export default function Header({
   }, [formData, liveSettings, schema, theme, uiSchema, validator, setShareURL]);
 
   return (
-    <div className='page-header'>
-      <h1>react-jsonschema-form</h1>
-      <div className='row'>
-        <div className='col-sm-4'>
+    <div className='playground-header'>
+      <div className="playground-header-row">
+        <div className="playground-header-col">
           <SampleSelector onSelected={onSampleSelected} selectedSample={sampleName} />
         </div>
-        <div className='col-sm-2'>
+        <div className="playground-header-col">
           <Form
             idPrefix='rjsf_options'
             schema={liveSettingsBooleanSchema}
@@ -339,7 +337,7 @@ export default function Header({
             <div />
           </Form>
         </div>
-        <div className='col-sm-2'>
+        <div className="playground-header-col">
           <Form
             idPrefix='rjsf_options'
             schema={liveSettingsSelectSchema}
@@ -351,17 +349,17 @@ export default function Header({
             <div />
           </Form>
         </div>
-        <div className='col-sm-2'>
+        <div className="playground-header-col">
           <ThemeSelector themes={themes} theme={theme} select={onThemeSelected} />
           {themes[theme] && themes[theme].subthemes && (
             <SubthemeSelector subthemes={themes[theme].subthemes!} subtheme={subtheme} select={onSubthemeSelected} />
           )}
           <ValidatorSelector validators={validators} validator={validator} select={onValidatorSelected} />
           <HeaderButtons playGroundFormRef={playGroundFormRef} />
-          <div style={{ marginTop: '5px' }} />
+          <div style={{ marginTop: '1rem' }} />
           <CopyLink shareURL={shareURL} onShare={onShare} />
         </div>
-        <div className='col-sm-2'>
+        <div className="playground-header-col">
           <RawValidatorTest validator={validators[validator]} schema={schema} formData={formData} />
         </div>
       </div>

@@ -2,10 +2,10 @@ import { ComponentType, FormEvent, useCallback, useEffect, useRef, useState } fr
 import { FormProps, IChangeEvent, withTheme } from '@rjsf/core';
 import { ErrorSchema, RJSFSchema, RJSFValidationError, UiSchema, ValidatorType } from '@rjsf/utils';
 import { isFunction } from 'lodash';
+import '@carbon/react';
 
 import { samples } from '../samples';
 import Header, { LiveSettings } from './Header';
-import DemoFrame from './DemoFrame';
 import ErrorBoundary from './ErrorBoundary';
 import GeoPosition from './GeoPosition';
 import { ThemesType } from './ThemeSelector';
@@ -13,6 +13,9 @@ import Editors from './Editors';
 import SpecialInput from './SpecialInput';
 import { Sample, UiSchemaForTheme } from '../samples/Sample';
 import base64 from '../utils/base64';
+
+// Import Carbon styling
+import '../styles/main.scss';
 
 export interface PlaygroundProps {
   themes: { [themeName: string]: ThemesType };
@@ -30,8 +33,7 @@ export default function Playground({ themes, validators }: PlaygroundProps) {
   const [shareURL, setShareURL] = useState<string | null>(null);
   const [theme, setTheme] = useState<string>('carbon');
   const [sampleName, setSampleName] = useState<string>('Simple');
-  const [subtheme, setSubtheme] = useState<string | null>(null);
-  const [stylesheet, setStylesheet] = useState<string | null>(null);
+  const [subtheme, setSubtheme] = useState<string | null>('g10');
   const [validator, setValidator] = useState<string>('AJV8');
   const [showForm, setShowForm] = useState(false);
   const [liveSettings, setLiveSettings] = useState<LiveSettings>({
@@ -51,15 +53,18 @@ export default function Playground({ themes, validators }: PlaygroundProps) {
   const [FormComponent, setFormComponent] = useState<ComponentType<FormProps>>(withTheme({}));
 
   const onThemeSelected = useCallback(
-    (theme: string, { stylesheet, theme: themeObj }: ThemesType) => {
+    (theme: string, { theme: themeObj }: ThemesType) => {
       setTheme(theme);
       setFormComponent(withTheme(themeObj));
-      setStylesheet(stylesheet);
+      // If theme is carbon, set a default subtheme
+      if (theme === 'carbon' && !subtheme) {
+        setSubtheme('g10');
+      }
       if (uiSchemaGenerator) {
         setUiSchema(uiSchemaGenerator.generator(theme));
       }
     },
-    [uiSchemaGenerator, setTheme, setSubtheme, setFormComponent, setStylesheet],
+    [uiSchemaGenerator, setTheme, setFormComponent, subtheme],
   );
 
   const load = useCallback(
@@ -73,7 +78,7 @@ export default function Playground({ themes, validators }: PlaygroundProps) {
         templates = {},
         fields = {},
         formData,
-        theme: dataTheme = theme,
+        theme: dataTheme = 'carbon', // Default to carbon theme
         extraErrors,
         liveSettings,
         validator,
@@ -141,11 +146,11 @@ export default function Playground({ themes, validators }: PlaygroundProps) {
       return;
     }
 
-    // initialize theme
-    onThemeSelected(theme, themes[theme]);
+    // initialize theme with carbon as default
+    onThemeSelected('carbon', themes['carbon']);
 
     setShowForm(true);
-  }, [onThemeSelected, load, loaded, setShowForm, theme, themes]);
+  }, [onThemeSelected, load, loaded, setShowForm, themes]);
 
   const onFormDataChange = useCallback(
     ({ formData }: IChangeEvent, id?: string) => {
@@ -166,7 +171,7 @@ export default function Playground({ themes, validators }: PlaygroundProps) {
   }, []);
 
   return (
-    <>
+    <div className="playground-container">
       <Header
         schema={schema}
         uiSchema={uiSchema}
@@ -183,63 +188,55 @@ export default function Playground({ themes, validators }: PlaygroundProps) {
         onSampleSelected={onSampleSelected}
         onThemeSelected={onThemeSelected}
         setSubtheme={setSubtheme}
-        setStylesheet={setStylesheet}
         setValidator={setValidator}
         setLiveSettings={setLiveSettings}
         setShareURL={setShareURL}
       />
-      <Editors
-        formData={formData}
-        setFormData={setFormData}
-        schema={schema}
-        setSchema={setSchema}
-        uiSchema={uiSchema}
-        setUiSchema={setUiSchema}
-        extraErrors={extraErrors}
-        setExtraErrors={setExtraErrors}
-        setShareURL={setShareURL}
-        hasUiSchemaGenerator={!!uiSchemaGenerator}
-      />
-      <div className='col-sm-5'>
-        <ErrorBoundary>
-          {showForm && (
-            <DemoFrame
-              head={
-                <>
-                  <link rel='stylesheet' id='theme' href={stylesheet || ''} />
-                </>
-              }
-              style={{
-                width: '100%',
-                height: 1000,
-                border: 0,
-              }}
-              theme={theme}
-              subtheme={subtheme || 'light'}
-            >
-              <FormComponent
-                {...otherFormProps}
-                {...liveSettings}
-                extraErrors={extraErrors}
-                schema={schema}
-                uiSchema={uiSchema}
-                formData={formData}
-                fields={{
-                  geo: GeoPosition,
-                  '/schemas/specialString': SpecialInput,
-                }}
-                validator={validators[validator]}
-                onChange={onFormDataChange}
-                onSubmit={onFormDataSubmit}
-                onBlur={(id: string, value: string) => console.log(`Touched ${id} with value ${value}`)}
-                onFocus={(id: string, value: string) => console.log(`Focused ${id} with value ${value}`)}
-                onError={(errorList: RJSFValidationError[]) => console.log('errors', errorList)}
-                ref={playGroundFormRef}
-              />
-            </DemoFrame>
-          )}
-        </ErrorBoundary>
+      
+      <div className="playground-main-content">
+        <div className="playground-editors-column">
+          <Editors
+            formData={formData}
+            setFormData={setFormData}
+            schema={schema}
+            setSchema={setSchema}
+            uiSchema={uiSchema}
+            setUiSchema={setUiSchema}
+            extraErrors={extraErrors}
+            setExtraErrors={setExtraErrors}
+            setShareURL={setShareURL}
+            hasUiSchemaGenerator={!!uiSchemaGenerator}
+          />
+        </div>
+      
+        <div className="playground-form-column">
+          <ErrorBoundary>
+            {showForm && (
+              <div className="playground-form-container" data-carbon-theme={subtheme || 'g10'}>
+                <FormComponent
+                  {...otherFormProps}
+                  {...liveSettings}
+                  extraErrors={extraErrors}
+                  schema={schema}
+                  uiSchema={uiSchema}
+                  formData={formData}
+                  fields={{
+                    geo: GeoPosition,
+                    '/schemas/specialString': SpecialInput,
+                  }}
+                  validator={validators[validator]}
+                  onChange={onFormDataChange}
+                  onSubmit={onFormDataSubmit}
+                  onBlur={(id: string, value: string) => console.log(`Touched ${id} with value ${value}`)}
+                  onFocus={(id: string, value: string) => console.log(`Focused ${id} with value ${value}`)}
+                  onError={(errorList: RJSFValidationError[]) => console.log('errors', errorList)}
+                  ref={playGroundFormRef}
+                />
+              </div>
+            )}
+          </ErrorBoundary>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
