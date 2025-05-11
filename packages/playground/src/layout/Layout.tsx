@@ -21,12 +21,12 @@ export function useFormTheme() {
 
 export function Layout({ children }: PropsWithChildren) {
   const [formTheme, setFormTheme] = useState<CarbonThemeType>('g10');
-  
+
   const contextValue = useMemo(() => ({ formTheme, setFormTheme }), [formTheme]);
 
   return (
     <ThemeContext.Provider value={contextValue}>
-      <Theme theme="white">
+      <Theme theme='white'>
         <Content>
           {children}
           <Footer />

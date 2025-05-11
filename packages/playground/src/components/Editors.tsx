@@ -2,11 +2,7 @@ import { useCallback, useState } from 'react';
 import MonacoEditor from '@monaco-editor/react';
 import { ErrorSchema, RJSFSchema, UiSchema } from '@rjsf/utils';
 import isEqualWith from 'lodash/isEqualWith';
-import { 
-  Tile, 
-  Grid, 
-  Column,
-} from '@carbon/react';
+import { Tile } from '@carbon/react';
 
 const monacoEditorOptions = {
   minimap: {
@@ -41,7 +37,7 @@ function Editor({ title, code, onChange }: EditorProps) {
     [setValid, onChange],
   );
 
-  const validityIndicator = valid ? "✓" : "✗";
+  const validityIndicator = valid ? '✓' : '✗';
   const validityClass = valid ? 'carbon-editor-valid' : 'carbon-editor-invalid';
 
   return (
@@ -132,19 +128,17 @@ export default function Editors({
   const uiSchemaTitle = hasUiSchemaGenerator ? 'UISchema (regenerated on theme change)' : 'UiSchema';
 
   return (
-    <div className="playground-editors">
+    <div className='playground-editors'>
       <Editor title='JSONSchema' code={toJson(schema)} onChange={onSchemaEdited} />
-      <div className="playground-editors-row">
-        <div className="playground-editors-column">
+      <div className='playground-editors-row'>
+        <div className='playground-editors-column'>
           <Editor title={uiSchemaTitle} code={toJson(uiSchema)} onChange={onUISchemaEdited} />
         </div>
-        <div className="playground-editors-column">
+        <div className='playground-editors-column'>
           <Editor title='formData' code={toJson(formData)} onChange={onFormDataEdited} />
         </div>
       </div>
-      {extraErrors && (
-        <Editor title='extraErrors' code={toJson(extraErrors)} onChange={onExtraErrorsEdited} />
-      )}
+      {extraErrors && <Editor title='extraErrors' code={toJson(extraErrors)} onChange={onExtraErrorsEdited} />}
     </div>
   );
 }

@@ -16,7 +16,7 @@ export default function CopyLink({ shareURL, onShare }: CopyLinkProps) {
 
   if (!shareURL) {
     return (
-      <Button kind="tertiary" size="sm" onClick={onShare}>
+      <Button kind='tertiary' size='sm' onClick={onShare}>
         Share
       </Button>
     );
@@ -25,19 +25,15 @@ export default function CopyLink({ shareURL, onShare }: CopyLinkProps) {
   return (
     <div className='playground-copy-link'>
       <TextInput
-        id="share-url-input"
-        type="text"
-        labelText=""
+        id='share-url-input'
+        type='text'
+        labelText=''
         hideLabel
         ref={input}
         defaultValue={shareURL}
-        size="sm"
+        size='sm'
       />
-      <CopyButton
-        onClick={onCopyClick}
-        iconDescription="Copy to clipboard"
-        feedback="Copied!"
-      />
+      <CopyButton onClick={onCopyClick} iconDescription='Copy to clipboard' feedback='Copied!' />
     </div>
   );
 }

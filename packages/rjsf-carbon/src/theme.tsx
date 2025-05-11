@@ -364,7 +364,7 @@ function FieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F exten
 }
 
 const formStyle = {
-  padding: '1rem 1rem 2rem 1rem', // Top: 16px, Right: 16px, Bottom: 32px, Left: 0px
+  padding: '2rem 1rem 2rem 1rem', // Top: 16px, Right: 16px, Bottom: 32px, Left: 0px
 };
 
 const formStyles = {

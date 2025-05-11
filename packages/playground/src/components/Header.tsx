@@ -19,7 +19,7 @@ const HeaderButton: React.FC<
   } & React.ButtonHTMLAttributes<HTMLButtonElement>
 > = ({ title, onClick, children, ...buttonProps }) => {
   return (
-    <Button kind="ghost" title={title} onClick={onClick} {...buttonProps}>
+    <Button kind='ghost' title={title} onClick={onClick} {...buttonProps}>
       {children}
     </Button>
   );
@@ -321,11 +321,11 @@ export default function Header({
 
   return (
     <div className='playground-header'>
-      <div className="playground-header-row">
-        <div className="playground-header-col">
+      <div className='playground-header-row'>
+        <div className='playground-header-col'>
           <SampleSelector onSelected={onSampleSelected} selectedSample={sampleName} />
         </div>
-        <div className="playground-header-col">
+        <div className='playground-header-col'>
           <Form
             idPrefix='rjsf_options'
             schema={liveSettingsBooleanSchema}
@@ -337,7 +337,7 @@ export default function Header({
             <div />
           </Form>
         </div>
-        <div className="playground-header-col">
+        <div className='playground-header-col'>
           <Form
             idPrefix='rjsf_options'
             schema={liveSettingsSelectSchema}
@@ -349,7 +349,7 @@ export default function Header({
             <div />
           </Form>
         </div>
-        <div className="playground-header-col">
+        <div className='playground-header-col'>
           <ThemeSelector themes={themes} theme={theme} select={onThemeSelected} />
           {themes[theme] && themes[theme].subthemes && (
             <SubthemeSelector subthemes={themes[theme].subthemes!} subtheme={subtheme} select={onSubthemeSelected} />
@@ -359,7 +359,7 @@ export default function Header({
           <div style={{ marginTop: '1rem' }} />
           <CopyLink shareURL={shareURL} onShare={onShare} />
         </div>
-        <div className="playground-header-col">
+        <div className='playground-header-col'>
           <RawValidatorTest validator={validators[validator]} schema={schema} formData={formData} />
         </div>
       </div>

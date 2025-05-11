@@ -28,7 +28,7 @@ interface SubthemeSelectorProps {
 
 export default function SubthemeSelector({ subtheme, subthemes, select }: SubthemeSelectorProps) {
   const { setFormTheme } = useFormTheme();
-  
+
   const schema: RJSFSchema = useMemo(
     () => ({
       type: 'string',

@@ -171,7 +171,7 @@ export default function Playground({ themes, validators }: PlaygroundProps) {
   }, []);
 
   return (
-    <div className="playground-container">
+    <div className='playground-container'>
       <Header
         schema={schema}
         uiSchema={uiSchema}
@@ -192,9 +192,9 @@ export default function Playground({ themes, validators }: PlaygroundProps) {
         setLiveSettings={setLiveSettings}
         setShareURL={setShareURL}
       />
-      
-      <div className="playground-main-content">
-        <div className="playground-editors-column">
+
+      <div className='playground-main-content'>
+        <div className='playground-editors-column'>
           <Editors
             formData={formData}
             setFormData={setFormData}
@@ -208,11 +208,11 @@ export default function Playground({ themes, validators }: PlaygroundProps) {
             hasUiSchemaGenerator={!!uiSchemaGenerator}
           />
         </div>
-      
-        <div className="playground-form-column">
+
+        <div className='playground-form-column'>
           <ErrorBoundary>
             {showForm && (
-              <div className="playground-form-container" data-carbon-theme={subtheme || 'g10'}>
+              <div className='playground-form-container' data-carbon-theme={subtheme || 'g10'}>
                 <FormComponent
                   {...otherFormProps}
                   {...liveSettings}
