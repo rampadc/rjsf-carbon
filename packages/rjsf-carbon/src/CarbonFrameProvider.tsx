@@ -45,45 +45,6 @@ export const __createCarbonFrameProvider =
     coreStyleLink.href = '//unpkg.com/@carbon/styles@1.81.0/css/styles.min.css';
     document.head.appendChild(coreStyleLink);
 
-    // Add theme CSS
-    const themeStyles = document.createElement('style');
-    themeStyles.textContent = `
-      /* Base theme zone styles */
-      .cds--theme-zone {
-        min-height: 100vh;
-      }
-
-      /* Theme-specific styles */
-      .cds--white {
-        --cds-background: #ffffff;
-        --cds-text-primary: #161616;
-        background-color: var(--cds-background);
-        color: var(--cds-text-primary);
-      }
-
-      .cds--g10 {
-        --cds-background: #f4f4f4;
-        --cds-text-primary: #161616;
-        background-color: var(--cds-background);
-        color: var(--cds-text-primary);
-      }
-
-      .cds--g90 {
-        --cds-background: #262626;
-        --cds-text-primary: #ffffff;
-        background-color: var(--cds-background);
-        color: var(--cds-text-primary);
-      }
-
-      .cds--g100 {
-        --cds-background: #161616;
-        --cds-text-primary: #ffffff;
-        background-color: var(--cds-background);
-        color: var(--cds-text-primary);
-      }
-    `;
-    document.head.appendChild(themeStyles);
-
     return (
       <CarbonWrapper targetDocument={document} dataTheme={dataTheme}>
         {props.children}
