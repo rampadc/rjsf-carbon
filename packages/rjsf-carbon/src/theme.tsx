@@ -346,7 +346,7 @@ function SubmitButton<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
   const { uiSchema, ...otherProps } = props;
 
   return (
-    <Button kind='primary' type='submit' {...otherProps} style={{ marginLeft: '1rem' }}>
+    <Button kind='primary' type='submit' {...otherProps} style={{ marginLeft: '1rem', marginBottom: '2rem' }}>
       Submit
     </Button>
   );
