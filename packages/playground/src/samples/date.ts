@@ -3,6 +3,7 @@ import { Sample } from './Sample';
 const date: Sample = {
   schema: {
     title: 'Date and time widgets',
+    description: 'For carbon, date widget works by itself but not in rjsf playground',
     type: 'object',
     properties: {
       native: {
