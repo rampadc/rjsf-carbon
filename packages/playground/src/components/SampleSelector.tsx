@@ -14,17 +14,23 @@ export default function SampleSelector({ onSelected, selectedSample }: SampleSel
     };
   }
 
+  const sampleList = Object.keys(samples);
+
   return (
-    <ul className='nav nav-pills'>
-      {Object.keys(samples).map((label, i) => {
-        return (
-          <li key={i} role='presentation' className={selectedSample === label ? 'active' : ''}>
-            <a href='#' onClick={onLabelClick(label)}>
-              {label}
-            </a>
-          </li>
-        );
-      })}
-    </ul>
+    <div className='sample-selector'>
+      <h5>Examples</h5>
+      <div className='nav nav-pills'>
+        {sampleList.map((label, i) => {
+          const isActive = selectedSample === label;
+          return (
+            <li key={i} role='presentation' className={isActive ? 'active' : ''}>
+              <a href='#' onClick={onLabelClick(label)}>
+                {label}
+              </a>
+            </li>
+          );
+        })}
+      </div>
+    </div>
   );
 }

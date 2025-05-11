@@ -11,7 +11,6 @@ import ordering from './ordering';
 import references from './references';
 import custom from './custom';
 import errors from './errors';
-import examples from './examples';
 import large from './large';
 import date from './date';
 import validation from './validation';
@@ -49,7 +48,6 @@ const _samples: Record<string, Sample> = {
   References: references,
   Custom: custom,
   Errors: errors,
-  Examples: examples,
   Large: large,
   'Date & time': date,
   Validation: validation,

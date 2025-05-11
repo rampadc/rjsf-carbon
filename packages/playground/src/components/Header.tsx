@@ -3,14 +3,13 @@ import Form, { IChangeEvent } from '@rjsf/core';
 import { RJSFSchema, UiSchema, ValidatorType } from '@rjsf/utils';
 import localValidator from '@rjsf/validator-ajv8';
 import base64 from '../utils/base64';
-import { Button, ButtonSet, Stack } from '@carbon/react';
+import { Button, ButtonSet } from '@carbon/react';
 
 import CopyLink from './CopyLink';
 import ThemeSelector, { ThemesType } from './ThemeSelector';
 import SampleSelector, { SampleSelectorProps } from './SampleSelector';
 import ValidatorSelector from './ValidatorSelector';
 import SubthemeSelector from './SubthemeSelector';
-import RawValidatorTest from './RawValidatorTest';
 
 const HeaderButton: React.FC<
   {
@@ -19,7 +18,7 @@ const HeaderButton: React.FC<
   } & React.ButtonHTMLAttributes<HTMLButtonElement>
 > = ({ title, onClick, children, ...buttonProps }) => {
   return (
-    <Button kind='ghost' title={title} onClick={onClick} {...buttonProps}>
+    <Button kind='ghost' title={title} onClick={onClick} size='sm' {...buttonProps}>
       {children}
     </Button>
   );
@@ -27,29 +26,19 @@ const HeaderButton: React.FC<
 
 function HeaderButtons({ playGroundFormRef }: { playGroundFormRef: React.MutableRefObject<any> }) {
   return (
-    <Stack gap={3}>
-      <h6>Programmatic</h6>
-      <ButtonSet stacked>
-        <HeaderButton
-          title='Click me to submit the form programmatically.'
-          onClick={() => playGroundFormRef.current.submit()}
-        >
+    <div className='header-buttons'>
+      <ButtonSet>
+        <HeaderButton title='Submit the form' onClick={() => playGroundFormRef.current.submit()}>
           Submit
         </HeaderButton>
-        <HeaderButton
-          title='Click me to validate the form programmatically.'
-          onClick={() => playGroundFormRef.current.validateForm()}
-        >
+        <HeaderButton title='Validate the form' onClick={() => playGroundFormRef.current.validateForm()}>
           Validate
         </HeaderButton>
-        <HeaderButton
-          title='Click me to reset the form programmatically.'
-          onClick={() => playGroundFormRef.current.reset()}
-        >
+        <HeaderButton title='Reset the form' onClick={() => playGroundFormRef.current.reset()}>
           Reset
         </HeaderButton>
       </ButtonSet>
-    </Stack>
+    </div>
   );
 }
 
@@ -322,10 +311,19 @@ export default function Header({
   return (
     <div className='playground-header'>
       <div className='playground-header-row'>
-        <div className='playground-header-col'>
+        <div className='playground-header-col sample-selector-col'>
           <SampleSelector onSelected={onSampleSelected} selectedSample={sampleName} />
         </div>
         <div className='playground-header-col'>
+          <div className='header-selector-group'>
+            <ThemeSelector themes={themes} theme={theme} select={onThemeSelected} />
+            {themes[theme] && themes[theme].subthemes && (
+              <SubthemeSelector subthemes={themes[theme].subthemes!} subtheme={subtheme} select={onSubthemeSelected} />
+            )}
+            <ValidatorSelector validators={validators} validator={validator} select={onValidatorSelected} />
+          </div>
+        </div>
+        <div className='playground-header-col form-options-col'>
           <Form
             idPrefix='rjsf_options'
             schema={liveSettingsBooleanSchema}
@@ -337,7 +335,7 @@ export default function Header({
             <div />
           </Form>
         </div>
-        <div className='playground-header-col'>
+        <div className='playground-header-col' style={{ maxWidth: '33vw' }}>
           <Form
             idPrefix='rjsf_options'
             schema={liveSettingsSelectSchema}
@@ -358,9 +356,7 @@ export default function Header({
           <HeaderButtons playGroundFormRef={playGroundFormRef} />
           <div style={{ marginTop: '1rem' }} />
           <CopyLink shareURL={shareURL} onShare={onShare} />
-        </div>
-        <div className='playground-header-col'>
-          <RawValidatorTest validator={validators[validator]} schema={schema} formData={formData} />
+          <HeaderButtons playGroundFormRef={playGroundFormRef} />
         </div>
       </div>
     </div>
