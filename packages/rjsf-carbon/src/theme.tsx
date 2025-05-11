@@ -199,29 +199,25 @@ function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
   };
 
   return (
-    <div className='cds--form-item'>
-      <div className='cds--form-item cds--number-wrapper' style={{ width: '100%' }}>
-        <NumberInput
-          id={id}
-          value={value}
-          onChange={handleChange}
-          onBlur={() => onBlur && onBlur(id, value)}
-          onFocus={() => onFocus && onFocus(id, value)}
-          label={displayLabel}
-          required={required}
-          disabled={disabled || readonly}
-          invalid={rawErrors.length > 0}
-          invalidText={rawErrors.join('. ')}
-          helperText={schema?.description?.toString()}
-          placeholder={placeholder || schema?.default?.toString()}
-          step={schema.multipleOf || 1}
-          min={schema.minimum as number}
-          max={schema.maximum as number}
-          hideSteppers={false}
-          size='md'
-        />
-      </div>
-    </div>
+    <NumberInput
+      id={id}
+      value={value}
+      onChange={handleChange}
+      onBlur={() => onBlur && onBlur(id, value)}
+      onFocus={() => onFocus && onFocus(id, value)}
+      label={displayLabel}
+      required={required}
+      disabled={disabled || readonly}
+      invalid={rawErrors.length > 0}
+      invalidText={rawErrors.join('. ')}
+      helperText={schema?.description?.toString()}
+      placeholder={placeholder || schema?.default?.toString()}
+      step={schema.multipleOf || 1}
+      min={schema.minimum as number}
+      max={schema.maximum as number}
+      hideSteppers={false}
+      size='md'
+    />
   );
 }
 
@@ -259,24 +255,21 @@ function RangeWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
   const step = schema.multipleOf || 1;
 
   return (
-    <div className='cds--form-item'>
-      <Slider
-        id={id}
-        labelText={displayLabel}
-        min={min}
-        max={max}
-        step={step}
-        value={value || min}
-        onChange={(data: { value: number }) => onChange(data.value)}
-        onBlur={() => onBlur && onBlur(id, value)}
-        onFocus={() => onFocus && onFocus(id, value)}
-        required={required}
-        disabled={disabled || readonly}
-        hideTextInput={false}
-        aria-describedby={ariaDescribedByIds<T>(id)}
-      />
-      {schema.description && <div className='cds--form__helper-text'>{schema.description}</div>}
-    </div>
+    <Slider
+      id={id}
+      labelText={displayLabel}
+      min={min}
+      max={max}
+      step={step}
+      value={value || min}
+      onChange={(data: { value: number }) => onChange(data.value)}
+      onBlur={() => onBlur && onBlur(id, value)}
+      onFocus={() => onFocus && onFocus(id, value)}
+      required={required}
+      disabled={disabled || readonly}
+      hideTextInput={false}
+      aria-describedby={ariaDescribedByIds<T>(id)}
+    />
   );
 }
 
