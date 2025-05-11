@@ -37,6 +37,8 @@ import {
   Grid,
   MultiSelect,
   Dropdown,
+  FileUploader,
+  FormGroup,
 } from '@carbon/react';
 import { Add } from '@carbon/icons-react';
 
@@ -780,6 +782,48 @@ function GridTemplate(props: GridTemplateProps) {
   );
 }
 
+function FileUploaderWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: WidgetProps<T, S, F>,
+): ReactElement {
+  const { id, label, required, onChange, schema, options, disabled, readonly } = props;
+
+  const displayLabel = `${label || schema.title || ''}${required ? ' (required)' : ''}`;
+  const accept = options?.accept?.toString().split(','); // Accept attribute for file types
+  const multiple = schema.type === 'array'; // Determine if multiple files are allowed
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files as FileList; // Explicitly cast to FileList
+    const fileData = Array.from(files).map((file: File) => {
+      return new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.readAsDataURL(file);
+      });
+    });
+
+    Promise.all(fileData).then((dataUrls) => {
+      onChange(multiple ? dataUrls : dataUrls[0]);
+    });
+  };
+
+  return (
+    <FormGroup legendText={'File uploader'}>
+      <FileUploader
+        id={id}
+        labelDescription={displayLabel}
+        buttonLabel='Add file'
+        buttonKind='primary'
+        size='md'
+        filenameStatus='edit'
+        accept={accept}
+        multiple={multiple}
+        disabled={disabled || readonly}
+        onChange={handleFileChange}
+      />
+    </FormGroup>
+  );
+}
+
 export function generateWidgets<
   T = any,
   S extends StrictRJSFSchema = RJSFSchema,
@@ -795,6 +839,7 @@ export function generateWidgets<
     RadioWidget,
     RangeWidget,
     AltDateTimeWidget,
+    FileWidget: FileUploaderWidget,
   };
 }
 
