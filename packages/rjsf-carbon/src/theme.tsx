@@ -39,6 +39,7 @@ import {
   Dropdown,
   FileUploader,
   FormGroup,
+  Layer,
 } from '@carbon/react';
 import { Add } from '@carbon/icons-react';
 
@@ -366,16 +367,65 @@ const formStyle = {
   padding: '1rem 1rem 2rem 1rem', // Top: 16px, Right: 16px, Bottom: 32px, Left: 0px
 };
 
+const formStyles = {
+  ...formStyle,
+  width: '100%',
+} as const;
+
+const nestedFormStyles = {
+  marginBottom: '1rem',
+  ':last-child': {
+    marginBottom: 0,
+  },
+} as const;
+
+function getSchemaDepth(schema: RJSFSchema, rootSchema: RJSFSchema): number {
+  if (!schema || typeof schema !== 'object') {
+    return 0;
+  }
+
+  // If this schema is the root schema, depth is 0
+  if (schema === rootSchema) {
+    return 0;
+  }
+
+  // If this schema is a direct property of root schema, depth is 1
+  if (Object.values(rootSchema.properties || {}).includes(schema)) {
+    return 1;
+  }
+
+  if (Object.hasOwn(schema, 'items')) {
+    return 1 + getSchemaDepth(schema.items as RJSFSchema, rootSchema);
+  }
+
+  if (Object.hasOwn(schema, 'properties')) {
+    const propertyDepths = Object.values(schema.properties as Record<string, RJSFSchema>).map((prop) =>
+      getSchemaDepth(prop, rootSchema),
+    );
+    return 1 + Math.max(0, ...propertyDepths);
+  }
+
+  return 0;
+}
+
 function ObjectFieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: ObjectFieldTemplateProps<T, S, F>,
 ): ReactElement {
-  const { description, title, properties } = props;
+  const { description, title, properties, schema, required, registry } = props;
 
-  return (
-    <div className='cds--form' style={{ ...formStyle, width: '100%' }}>
+  const depth = getSchemaDepth(schema, registry.rootSchema);
+  const HeadingTag = `h${Math.min(6, 3 + depth)}` as keyof JSX.IntrinsicElements;
+
+  const content = (
+    <div className='cds--form' style={depth > 0 ? nestedFormStyles : formStyles}>
       {(title || description) && (
-        <div style={{ marginBottom: '2.5rem', width: '100%' }}>
-          {title && <h3 className='cds--heading-03'>{title}</h3>}
+        <div style={{ marginBottom: depth > 0 ? '1rem' : '2.5rem' }}>
+          {title && (
+            <HeadingTag className='cds--heading-03'>
+              {title}
+              {required && ' (required)'}
+            </HeadingTag>
+          )}
           {description && (
             <p className='cds--body-compact-01' style={{ marginTop: '0.5rem' }}>
               {description}
@@ -383,14 +433,18 @@ function ObjectFieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F
           )}
         </div>
       )}
-      <Stack gap={7} style={{ width: '100%' }}>
+      <Stack gap={7}>
         {properties.map((element) => (
-          <div key={element.name} className='cds--form-item' style={{ width: '100%' }}>
-            {element.content}
-          </div>
+          <Column key={element.name}>{element.content}</Column>
         ))}
       </Stack>
     </div>
+  );
+
+  return Object.hasOwn(schema, '$ref') || (Object.hasOwn(schema, 'items') && typeof schema.items === 'object') ? (
+    <Layer>{content}</Layer>
+  ) : (
+    content
   );
 }
 
@@ -505,40 +559,53 @@ function RadioWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
 function ArrayFieldTemplate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: ArrayFieldTemplateProps<T, S, F>,
 ): ReactElement {
-  const { canAdd, disabled, idSchema, items, onAddClick, readonly, required, schema, title } = props;
+  const { canAdd, disabled, items, onAddClick, readonly, required, schema, title, registry } = props;
 
-  return (
-    <Stack gap={5}>
-      {title && (
-        <div className='cds--form-item'>
-          <label htmlFor={idSchema.$id} className='cds--label'>
-            {title}
-            {required && <span className='cds--label--required'>*</span>}
-          </label>
-          {schema.description && <div className='cds--form__helper-text'>{schema.description}</div>}
+  const depth = getSchemaDepth(schema, registry.rootSchema);
+  const HeadingTag = `h${Math.min(6, 3 + depth)}` as keyof JSX.IntrinsicElements;
+
+  const content = (
+    <div className='cds--form' style={depth > 0 ? nestedFormStyles : formStyles}>
+      {(title || schema.description) && (
+        <div style={{ marginBottom: depth > 0 ? '1rem' : '2.5rem' }}>
+          {title && (
+            <HeadingTag className='cds--heading-03'>
+              {title}
+              {required && ' (required)'}
+            </HeadingTag>
+          )}
+          {schema.description && (
+            <p className='cds--body-compact-01' style={{ marginTop: '0.5rem' }}>
+              {schema.description}
+            </p>
+          )}
         </div>
       )}
-      <div className='cds--form-item'>
+      <Stack gap={5}>
         {items.map(({ key, ...itemProps }) => (
-          <Tile key={key} className='cds--tile--array-item'>
-            {itemProps.children}
-          </Tile>
+          <Layer key={key}>
+            <Tile>
+              <Layer>{itemProps.children}</Layer>
+            </Tile>
+          </Layer>
         ))}
-      </div>
-      {canAdd && (
-        <Button
-          kind='ghost'
-          onClick={onAddClick}
-          disabled={disabled || readonly}
-          renderIcon={Add}
-          iconDescription='Add item'
-          size='sm'
-        >
-          Add Item
-        </Button>
-      )}
-    </Stack>
+        {canAdd && (
+          <Button
+            kind='ghost'
+            onClick={onAddClick}
+            disabled={disabled || readonly}
+            renderIcon={Add}
+            iconDescription='Add item'
+            size='sm'
+          >
+            Add Item
+          </Button>
+        )}
+      </Stack>
+    </div>
   );
+
+  return Object.hasOwn(schema, 'items') && typeof schema.items === 'object' ? <Layer>{content}</Layer> : content;
 }
 
 function ErrorList<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>({
