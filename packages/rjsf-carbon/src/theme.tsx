@@ -195,8 +195,14 @@ function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
       onChange(options.emptyValue);
       return;
     }
+
+    // Parse as a number to avoid issues with leading zeros
     const numericValue = typeof state.value === 'string' ? parseFloat(state.value) : state.value;
-    onChange(numericValue);
+
+    // Only update if it's a valid number
+    if (!isNaN(numericValue)) {
+      onChange(numericValue);
+    }
   };
 
   return (
@@ -218,6 +224,8 @@ function NumberWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extend
       max={schema.maximum as number}
       hideSteppers={false}
       size='md'
+      // Ensure input is always treated as a numeric value
+      allowEmpty={true}
     />
   );
 }
